@@ -1,0 +1,144 @@
+version: '3.8'
+
+services:
+  # Nginx Web Server
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: ilisan_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker/nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - php
+    networks:
+      - ilisan_network
+
+  # PHP-FPM
+  php:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    container_name: ilisan_php
+    volumes:
+      - .:/var/www/html
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      - ./docker/php/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=ilisan_eticaret
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=password
+      - CACHE_STORE=redis
+      - SESSION_DRIVER=redis
+      - QUEUE_CONNECTION=redis
+      - REDIS_HOST=redis
+    networks:
+      - ilisan_network
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: ilisan_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ilisan_eticaret
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d
+    networks:
+      - ilisan_network
+
+  # Redis Cache & Session Store
+  redis:
+    image: redis:7-alpine
+    container_name: ilisan_redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass ""
+    volumes:
+      - redis_data:/data
+    networks:
+      - ilisan_network
+
+  # MailHog (Development Email Testing)
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: ilisan_mailhog
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # Web UI
+    networks:
+      - ilisan_network
+
+  # MinIO (S3 Compatible Object Storage)
+  minio:
+    image: minio/minio:latest
+    container_name: ilisan_minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - ilisan_network
+
+  # Queue Worker
+  queue:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    container_name: ilisan_queue
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - php
+      - redis
+      - postgres
+    command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
+    networks:
+      - ilisan_network
+
+  # Scheduler (Laravel Cron)
+  scheduler:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    container_name: ilisan_scheduler
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - php
+    command: /bin/sh -c "while true; do php artisan schedule:run --verbose --no-interaction; sleep 60; done"
+    networks:
+      - ilisan_network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  minio_data:
+    driver: local
+
+networks:
+  ilisan_network:
+    driver: bridge
