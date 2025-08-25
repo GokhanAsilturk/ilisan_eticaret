@@ -1,0 +1,48 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: 8
+    paths:
+        - app/
+        - config/
+        - routes/
+        - database/
+        - tests/
+
+    excludePaths:
+        - bootstrap/
+        - storage/
+        - vendor/
+        - public/
+        - node_modules/
+        - resources/views/
+        - lang/
+
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    reportUnmatchedIgnoredErrors: false
+
+    ignoreErrors:
+        # Laravel specific ignores
+        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder#'
+        - '#Call to an undefined method Illuminate\\Database\\Query\\Builder#'
+        - '#Parameter \#1 \$callback of method Illuminate\\Support\\Collection#'
+        - '#Unsafe usage of new static\(\)#'
+
+        # Blade specific ignores
+        - '#Variable \$[a-zA-Z0-9_]+ might not be defined#'
+
+        # Factory specific ignores
+        - '#Access to an undefined property [a-zA-Z0-9\\_]+::\$[a-zA-Z0-9_]+#'
+
+    bootstrapFiles:
+        - bootstrap/app.php
+
+    stubFiles:
+        - stubs/User.stub
+
+    treatPhpDocTypesAsCertain: false
+    checkOctaneCompatibility: true
+    noUnnecessaryCollectionCall: true
+    checkModelProperties: true

@@ -19,7 +19,11 @@ RUN apk add --no-cache \
     redis \
     supervisor \
     nodejs \
-    npm
+    npm \
+    autoconf \
+    gcc \
+    g++ \
+    make
 
 # Install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
@@ -54,10 +58,17 @@ RUN addgroup -g 1000 -S www && \
 # Copy application files
 COPY . /var/www/html/
 
+# Create required directories if they don't exist
+RUN mkdir -p /var/www/html/storage/logs \
+    && mkdir -p /var/www/html/storage/framework/cache \
+    && mkdir -p /var/www/html/storage/framework/sessions \
+    && mkdir -p /var/www/html/storage/framework/views \
+    && mkdir -p /var/www/html/bootstrap/cache
+
 # Set ownership and permissions
-RUN chown -R www:www /var/www/html
-RUN chmod -R 755 /var/www/html/storage
-RUN chmod -R 755 /var/www/html/bootstrap/cache
+RUN chown -R www:www /var/www/html \
+    && chmod -R 755 /var/www/html/storage \
+    && chmod -R 755 /var/www/html/bootstrap/cache
 
 # Switch to www user
 USER www
