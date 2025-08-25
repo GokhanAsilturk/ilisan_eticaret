@@ -4,49 +4,54 @@ Laravel 11 tabanlı güvenli ve ölçeklenebilir e-ticaret sistemi.
 
 ## Teknoloji Stack
 
-- **Backend**: PHP 8.2+, Laravel 11
-- **Frontend**: Blade Templates, Tailwind CSS, Alpine.js
-- **Admin Panel**: Filament 3
-- **Veritabanı**: PostgreSQL
-- **Cache**: Redis
-- **Queue**: Redis
-- **Konteynerizasyon**: Docker & Docker Compose
-- **Ödeme**: iyzico 3D Secure
+-   **Backend**: PHP 8.2+, Laravel 11
+-   **Frontend**: Blade Templates, Tailwind CSS, Alpine.js
+-   **Admin Panel**: Filament 3
+-   **Veritabanı**: PostgreSQL
+-   **Cache**: Redis
+-   **Queue**: Redis
+-   **Konteynerizasyon**: Docker & Docker Compose
+-   **Ödeme**: iyzico 3D Secure
 
 ## Özellikler
 
 ### ✅ Temel E-Ticaret
-- Ürün katalog yönetimi
-- Kategori bazlı organizasyon
-- Sepet yönetimi
-- Güvenli checkout süreci
-- Sipariş takip sistemi
+
+-   Ürün katalog yönetimi
+-   Kategori bazlı organizasyon
+-   Sepet yönetimi
+-   Güvenli checkout süreci
+-   Sipariş takip sistemi
 
 ### ✅ Kullanıcı Yönetimi
-- Kullanıcı kaydı ve girişi
-- İki faktörlü doğrulama (2FA)
-- Profil yönetimi
-- Adres defteri
+
+-   Kullanıcı kaydı ve girişi
+-   İki faktörlü doğrulama (2FA)
+-   Profil yönetimi
+-   Adres defteri
 
 ### ✅ Admin Paneli
-- Filament 3 tabanlı modern arayüz
-- Ürün/kategori yönetimi
-- Sipariş yönetimi
-- Kullanıcı yönetimi
-- Raporlama ve analitik
+
+-   Filament 3 tabanlı modern arayüz
+-   Ürün/kategori yönetimi
+-   Sipariş yönetimi
+-   Kullanıcı yönetimi
+-   Raporlama ve analitik
 
 ### ✅ Güvenlik
-- CSRF koruması
-- Rate limiting
-- Güvenlik başlıkları
-- Input validation
-- Audit logging
+
+-   CSRF koruması
+-   Rate limiting
+-   Güvenlik başlıkları
+-   Input validation
+-   Audit logging
 
 ### ✅ Ödeme Sistemi
-- iyzico 3D Secure entegrasyonu
-- Güvenli ödeme işleme
-- Webhook handling
-- Refund yönetimi
+
+-   iyzico 3D Secure entegrasyonu
+-   Güvenli ödeme işleme
+-   Webhook handling
+-   Refund yönetimi
 
 ## Kurulum
 
@@ -174,9 +179,9 @@ Güvenlik açığı bildirmek için `security@ilisan.com.tr` adresine e-posta g�
 
 ## Destek
 
-- 📧 E-posta: support@ilisan.com.tr
-- 📝 Dokümantasyon: `/docs`
-- 🐛 Bug Reports: GitHub Issues
+-   📧 E-posta: support@ilisan.com.tr
+-   📝 Dokümantasyon: `/docs`
+-   🐛 Bug Reports: GitHub Issues
 
 ---
 

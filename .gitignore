@@ -51,7 +51,7 @@ storage/logs/*
 # Keep storage directories
 !storage/app/.gitkeep
 !storage/framework/cache/.gitkeep
-!storage/framework/sessions/.gitkeep  
+!storage/framework/sessions/.gitkeep
 !storage/framework/views/.gitkeep
 !storage/logs/.gitkeep
 
