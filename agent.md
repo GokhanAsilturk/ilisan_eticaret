@@ -57,15 +57,18 @@ Sen kıdemli bir Laravel mimarı ve DevOps uzmanısın. 6 haftada **basit ama sa
 
 ## HAFTA 2: Veri Modeli ve Migrasyonlar
 
-### [ ] 2.1 Core Modeller
+### [✅] 2.1 Core Modeller
 
 Bu modelleri migrations ve factories ile oluştur:
 
--   **User** (name, email, email_verified_at, password, remember_token, two_factor_secret, two_factor_recovery_codes)
--   **Category** (name, slug, description, parent_id, is_active, sort_order)
--   **Product** (name, slug, description, short_description, sku, is_active, meta_title, meta_description)
--   **ProductVariant** (product_id, name, sku, price, compare_price, cost_price, inventory_quantity, weight, requires_shipping)
--   **Inventory** (variant_id, quantity, reserved_quantity, available_quantity, low_stock_threshold)
+-   **User** ✅ (name, email, email_verified_at, password, remember_token, two_factor_secret, two_factor_recovery_codes)
+-   **Category** ✅ (name, slug, description, parent_id, is_active, sort_order)
+-   **Product** ✅ (name, slug, description, short_description, sku, is_active, meta_title, meta_description)
+-   **ProductVariant** ✅ (product_id, name, sku, price, compare_price, cost_price, inventory_quantity, weight, requires_shipping)
+-   **Inventory** ✅ (variant_id, quantity, reserved_quantity, available_quantity, low_stock_threshold)
+-   **Enums** ✅ (OrderStatus, PaymentStatus, ShipmentStatus, AddressType, CouponType)
+
+**Çıktı**: Core veri modelleri ve enum'lar hazır, migration'lar çalıştı
 
 ### [ ] 2.2 E-ticaret Modelleri
 
