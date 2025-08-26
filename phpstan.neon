@@ -39,9 +39,6 @@ parameters:
     bootstrapFiles:
         - bootstrap/app.php
 
-    stubFiles:
-        - stubs/User.stub
-
     treatPhpDocTypesAsCertain: false
     checkOctaneCompatibility: true
     noUnnecessaryCollectionCall: true
