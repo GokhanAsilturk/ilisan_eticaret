@@ -36,7 +36,7 @@ Sen kıdemli bir Laravel mimarı ve DevOps uzmanısın. 6 haftada **basit ama sa
 -   .vscode/launch.json (Xdebug pathMappings)
 -   **Çıktı**: VS Code konfigürasyonu
 
-### [ ] 1.4 Kalite Araçları
+### [✅] 1.4 Kalite Araçları
 
 -   Pint, PHPCS (PSR-12) kur
 -   PHPStan/Larastan yüksek seviye kur
