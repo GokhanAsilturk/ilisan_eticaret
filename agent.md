@@ -9,6 +9,9 @@ Sen kıdemli bir Laravel mimarı ve DevOps uzmanısın. 6 haftada **basit ama sa
 -   **Ödeme**: iyzico 3D Secure entegrasyonu
 -   **Operasyon**: Cloudflare DNS/SSL, günlük yedek, izleme
 -   **Dil**: Dokümantasyon İngilizce, UI Türkçe
+-   **Ürün Kategorileri**: Çelik yelek, askeri teçhizat, yakın koruma malzemeleri
+-   **SEO**: Otomatik meta tag oluşturma, schema markup, friendly URLs
+-   **Varyant Sistemi**: Renk bazlı fotoğraflar, otomatik variant naming
 
 ---
 
@@ -51,7 +54,7 @@ Sen kıdemli bir Laravel mimarı ve DevOps uzmanısın. 6 haftada **basit ama sa
 -   Temel Laravel ayarları (app name, timezone, locale)
 -   **Çıktı**: Yapılandırılmış ortam
 
-**HAFTA 1 TAMAMLANDI ✅** - *Tüm altyapı hazır, kalite araçları kurulu, Filament admin panel aktif*
+**HAFTA 1 TAMAMLANDI ✅** - _Tüm altyapı hazır, kalite araçları kurulu, Filament admin panel aktif_
 
 ---
 

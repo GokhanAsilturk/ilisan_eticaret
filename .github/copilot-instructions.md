@@ -64,6 +64,33 @@ Bu proje Laravel 11 tabanlı **İlisan E-Ticaret** sistemidir. Proje özellikler
 
 ## 🌐 E-Ticaret Özellikleri
 
+### 🛡️ Ürün Kategorileri:
+-   **Çelik Yelek**: Farklı koruma seviyeleri, boyut ve renk seçenekleri
+-   **Askeri Teçhizat**: Taktik ekipmanlar, güvenlik malzemeleri
+-   **Yakın Koruma Kıyafetleri**: Özel tasarım gömlek, pantolon, takım elbise
+-   **Güvenlik Aksesuarları**: Kemik, eldiven, şapka, ayakkabı
+
+### 🎨 Renk ve Varyant Sistemi:
+-   **Varyant Attributes**: `{"color": "Siyah", "size": "L", "material": "Kevlar"}`
+-   **Renk Bazlı Fotoğraflar**: Her renk için ayrı image gallery
+-   **SEO Friendly URLs**: `/celik-yelek/siyah-l-kevlar`
+-   **Varyant Naming**: "Çelik Yelek - Siyah L Kevlar"
+
+### 🔍 SEO Otomasyonu:
+-   **Auto Meta Title**: "{Ürün Adı} | {Kategori} | İlisan"
+-   **Auto Meta Description**: "{Ürün Kısa Açıklama} {Renk} {Beden} seçenekleri ile..."
+-   **Auto Slug Generation**: Türkçe karakterleri temizle, SEO friendly
+-   **Schema.org**: Product, Offer, Review markup'ları
+-   **Open Graph**: Sosyal medya paylaşım optimizasyonu
+
+### 📸 Medya Yönetimi:
+-   **Ürün Ana Fotoğrafları**: Genel tanıtım görselleri
+-   **Varyant Fotoğrafları**: Her renk için özel fotoğraflar
+-   **Multiple Images**: Her varyant için çoklu görsel
+-   **Image Optimization**: WebP format, lazy loading
+-   **Alt Text**: SEO için otomatik alt text oluşturma
+
+### 🛒 E-Ticaret Akışı:
 -   **Ürün Yönetimi**: Kategoriler, varyantlar, stok takibi
 -   **Sipariş Süreci**: Sepet → Checkout → Ödeme → Kargo
 -   **Kullanıcı Deneyimi**: Hesap yönetimi, sipariş takibi, adres defteri

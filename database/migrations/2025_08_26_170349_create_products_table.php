@@ -22,6 +22,10 @@ return new class () extends Migration {
             $table->boolean('is_featured')->default(false);
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->string('seo_title')->nullable(); // Override for meta title
+            $table->text('seo_description')->nullable(); // Override for meta description
+            $table->string('og_image_path')->nullable(); // Open Graph image
             $table->decimal('weight', 8, 2)->nullable();
             $table->json('dimensions')->nullable(); // {width, height, length}
             $table->boolean('requires_shipping')->default(true);

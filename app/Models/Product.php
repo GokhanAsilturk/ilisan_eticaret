@@ -25,9 +25,13 @@ class Product extends Model
         'is_featured',
         'meta_title',
         'meta_description',
+        'meta_keywords',
         'weight',
         'dimensions',
         'requires_shipping',
+        'seo_title',
+        'seo_description',
+        'og_image_path',
     ];
 
     protected $casts = [
@@ -137,5 +141,89 @@ class Product extends Model
         return $this->variants()
             ->join('inventories', 'product_variants.id', '=', 'inventories.variant_id')
             ->sum('inventories.available_quantity');
+    }
+
+    /**
+     * Auto-generate SEO meta title
+     */
+    public function getAutoMetaTitle(): string
+    {
+        if ($this->seo_title) {
+            return $this->seo_title;
+        }
+
+        return $this->name . ' | ' . $this->category->name . ' | İlisan';
+    }
+
+    /**
+     * Auto-generate SEO meta description
+     */
+    public function getAutoMetaDescription(): string
+    {
+        if ($this->seo_description) {
+            return $this->seo_description;
+        }
+
+        $variants = $this->variants->take(3);
+        $colors = $variants->pluck('attributes.color')->filter()->unique()->implode(', ');
+        $sizes = $variants->pluck('attributes.size')->filter()->unique()->implode(', ');
+
+        $description = $this->short_description ?? \Str::limit($this->description, 120);
+
+        $variantInfo = '';
+        if ($colors) {
+            $variantInfo .= $colors . ' renk seçenekleri';
+        }
+        if ($sizes) {
+            $variantInfo .= ($variantInfo ? ' ve ' : '') . $sizes . ' beden seçenekleri';
+        }
+
+        return $description . ($variantInfo ? ' ile ' . $variantInfo : '') . '. İlisan güvencesiyle.';
+    }
+
+    /**
+     * Get SEO-friendly variant URL
+     */
+    public function getVariantUrl($variant): string
+    {
+        $baseSlug = $this->slug;
+
+        if ($variant->attributes) {
+            $attributes = collect($variant->attributes)
+                ->map(function ($value, $key) {
+                    return \Str::slug($value);
+                })
+                ->implode('-');
+
+            return $baseSlug . '/' . $attributes;
+        }
+
+        return $baseSlug;
+    }
+
+    /**
+     * Get available colors from variants
+     */
+    public function getAvailableColors(): array
+    {
+        return $this->variants()
+            ->whereNotNull('attributes->color')
+            ->pluck('attributes->color')
+            ->unique()
+            ->values()
+            ->toArray();
+    }
+
+    /**
+     * Get available sizes from variants
+     */
+    public function getAvailableSizes(): array
+    {
+        return $this->variants()
+            ->whereNotNull('attributes->size')
+            ->pluck('attributes->size')
+            ->unique()
+            ->values()
+            ->toArray();
     }
 }
