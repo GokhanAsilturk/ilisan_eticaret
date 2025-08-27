@@ -1,6 +1,25 @@
 # E-Ticaret Projesi ToDo Listesi (PHP Laravel 11 + Copilot)
 
-Sen kıdemli bir Laravel mimarı ve DevOps uzmanısın. 6 haftada **basit ama sağlam ve güvenli** bir e-ticaret sistemi geliştirmemi sağlayacaksın. PHP 8.2+, Laravel 11, VS Code kullanıyorum. Her adımda gerekli dosyaları oluştur, kod örnekleri ver, komutları listele ve bir sonraki adıma geçmeden önce kontrol listesi sun.
+Sen kıdemli bir Laravel mimarı ve DevOps uzmanısın. 6 haftada **basit ama sağlam ve güvenli** bir e-ticaret sistemi geliştirmemi sağlayacaksın. PHP 8.2+, Laravel 11, VS Code kullanıyorum. Her adımda gerekli### [ ] 6.4 Monitoring ve Error Handling
+
+-   **Global Exception Handler**: Structured logging, error tracking
+-   **Health Check Endpoints**: /health, /api/health, /status
+-   **Performance Monitoring**: APM integration (New Relic, DataDog)
+-   **Error Tracking**: Sentry integration with context
+-   **Log Management**: Structured logs, log rotation, log analysis
+-   **Database Monitoring**: Slow query detection, connection pooling
+-   **Resource Monitoring**: Memory, CPU, disk usage alerts
+
+### [ ] 6.5 Legal Pages ve KVKK
+
+Türkçe sayfa templateları oluştur:
+
+-   **KVKK** (Kişisel Verilerin Korunması)
+-   **Privacy Policy** (Gizlilik Politikası)
+-   **Terms of Service** (Hizmet Şartları)
+-   **Distance Sales Agreement** (Mesafeli Satış Sözleşmesi)
+-   **Return Policy** (İade Politikası)
+-   **Cookie Policy** (Çerez Politikası) oluştur, kod örnekleri ver, komutları listele ve bir sonraki adıma geçmeden önce kontrol listesi sun.
 
 ## Proje Özeti
 
@@ -92,6 +111,16 @@ Bu modelleri migrations ve factories ile oluştur:
 -   **Media** (mediable_type, mediable_id, filename, disk, mime_type, size, alt_text, title, sort_order)
 -   **AuditLog** (user_id, event, auditable_type, auditable_id, old_values, new_values, url, ip_address, user_agent)
 
+### [ ] 2.5 Global Exception Handler ve Best Practices
+
+-   **Exception Handler**: Structured error logging, user-friendly error pages
+-   **Health Check Endpoints**: /health, /api/health için controller'lar
+-   **Request/Response Logging**: HTTP traffic monitoring middleware
+-   **Performance Monitoring**: Database query logging, slow query detection
+-   **Backup Service**: Automated backup commands ve scheduling
+-   **Security Middleware**: Rate limiting, CSRF, security headers
+-   **API Error Responses**: Standardized JSON error format
+
 ### [ ] 2.5 Enum'lar ve İlişkiler
 
 Enum'ları oluştur:
@@ -103,6 +132,16 @@ Enum'ları oluştur:
 -   **AddressType**: (shipping, billing)
 
 Model ilişkilerini kur ve factories/seeders yaz.
+
+### [ ] 2.6 Production-Ready Best Practices
+
+-   **Global Exception Handler**: Structured logging, user-friendly error pages
+-   **Health Check System**: Application, database, cache, queue health endpoints
+-   **Request Logging Middleware**: HTTP traffic monitoring ve analytics
+-   **Security Middleware Stack**: CSRF, rate limiting, security headers
+-   **Backup System**: Database ve file backup automation
+-   **Performance Monitoring**: Query logging, slow query detection, APM integration
+-   **Error Tracking**: Structured error logging with context
 
 ---
 
@@ -279,9 +318,13 @@ Türkçe sayfa templateları oluştur:
 
 -   **Sentry** error tracking
 -   **Health Check** endpoints
+-   **Application Performance Monitoring**: Query monitoring, resource usage
+-   **Business Metrics**: Orders, revenue, conversion rates
 -   **Database Backup**: günlük automated
 -   **File Backup**: S3 compatible storage
+-   **Backup Verification**: Automated restore testing
 -   **Uptime Monitoring**: alerts setup
+-   **Log Aggregation**: ELK stack or similar
 
 ---
 
@@ -309,6 +352,14 @@ Türkçe sayfa templateları oluştur:
 -   Email sending
 -   File upload/storage
 -   Admin panel critical functions
+
+### [ ] Production Monitoring Tests
+
+-   Health check endpoints response
+-   Error tracking integration
+-   Performance metrics collection
+-   Backup/restore procedures
+-   Alert system functionality
 
 ---
 
@@ -343,6 +394,16 @@ Türkçe sayfa templateları oluştur:
 -   File backup verified
 -   Recovery procedure documented
 -   Rollback plan ready
+
+### [ ] Monitoring & Alerting
+
+-   Error tracking configured (Sentry/Bugsnag)
+-   Performance monitoring active
+-   Health check alerts setup
+-   Database performance monitoring
+-   Resource usage alerts (CPU, memory, disk)
+-   Business metrics tracking
+-   Log aggregation and analysis
 
 ---
 

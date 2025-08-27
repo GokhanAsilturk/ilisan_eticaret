@@ -66,6 +66,24 @@ Bu proje Laravel 11 tabanlı **İlisan E-Ticaret** sistemidir. Proje özellikler
 -   Test veritabanı olarak memory SQLite kullan
 -   Factory'leri kullanarak test data oluştur
 
+### Error Handling & Monitoring:
+
+-   Global exception handler ile structured error logging
+-   User-friendly error pages (404, 500, 503)
+-   API error responses standardized format
+-   Health check endpoints (/health, /api/health)
+-   Performance monitoring ve APM entegrasyonu
+-   Database query monitoring ve slow query alerts
+-   Memory leak detection ve resource monitoring
+
+### Backup & Recovery:
+
+-   Automated daily database backups
+-   File storage backup strategies
+-   Backup verification ve restore testing
+-   Point-in-time recovery capabilities
+-   Disaster recovery procedures documented
+
 ## 🌐 E-Ticaret Özellikleri
 
 ### 🛡️ Ürün Kategorileri:
