@@ -92,13 +92,15 @@ Bu modelleri migrations ve factories ile oluştur:
 
 **Çıktı**: Core veri modelleri ve enum'lar hazır, migration'lar çalıştı
 
-### [ ] 2.2 E-ticaret Modelleri
+### [✅] 2.2 E-ticaret Modelleri
 
--   **Cart** (user_id, session_id, expires_at)
--   **CartItem** (cart_id, variant_id, quantity, price)
--   **Order** (user_id, order_number, status, total, subtotal, tax_total, shipping_total, currency)
--   **OrderItem** (order_id, variant_id, quantity, price, total)
--   **Address** (user_id, type, first_name, last_name, company, phone, address_line_1, address_line_2, city, state, postal_code, country)
+-   **Cart** ✅ (user_id, session_id, expires_at)
+-   **CartItem** ✅ (cart_id, variant_id, quantity, price)
+-   **Order** ✅ (user_id, order_number, status, total, subtotal, tax_total, shipping_total, currency)
+-   **OrderItem** ✅ (order_id, variant_id, quantity, price, total)
+-   **Address** ✅ (user_id, type, first_name, last_name, company, phone, address_line_1, address_line_2, city, state, postal_code, country)
+
+**Çıktı**: E-ticaret modelleri hazır, migrations çalıştı, ilişkiler tanımlandı
 
 ### [ ] 2.3 Ödeme ve Kargo Modelleri
 
