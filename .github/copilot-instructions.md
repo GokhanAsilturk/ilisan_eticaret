@@ -27,6 +27,10 @@ Bu proje Laravel 11 tabanlı **İlisan E-Ticaret** sistemidir. Proje özellikler
 ## 🎯 Güvenlik & Kalite
 
 -   **Güvenlik**: CSRF, Rate limiting, Input validation, Security headers
+-   **Error Handling**: Global exception handler, structured logging
+-   **Monitoring**: Health checks, performance metrics, error tracking
+-   **Backup**: Automated database backups, file storage backups
+-   **Logging**: Structured logs, request/response logging, audit trails
 -   **Mimari**: Service pattern, Repository pattern (gerektiğinde)
 -   **Dil**: Türkçe UI, İngilizce dokümantasyon
 -   **Zaman Dilimi**: Europe/Istanbul
@@ -65,18 +69,21 @@ Bu proje Laravel 11 tabanlı **İlisan E-Ticaret** sistemidir. Proje özellikler
 ## 🌐 E-Ticaret Özellikleri
 
 ### 🛡️ Ürün Kategorileri:
+
 -   **Çelik Yelek**: Farklı koruma seviyeleri, boyut ve renk seçenekleri
 -   **Askeri Teçhizat**: Taktik ekipmanlar, güvenlik malzemeleri
 -   **Yakın Koruma Kıyafetleri**: Özel tasarım gömlek, pantolon, takım elbise
 -   **Güvenlik Aksesuarları**: Kemik, eldiven, şapka, ayakkabı
 
 ### 🎨 Renk ve Varyant Sistemi:
+
 -   **Varyant Attributes**: `{"color": "Siyah", "size": "L", "material": "Kevlar"}`
 -   **Renk Bazlı Fotoğraflar**: Her renk için ayrı image gallery
 -   **SEO Friendly URLs**: `/celik-yelek/siyah-l-kevlar`
 -   **Varyant Naming**: "Çelik Yelek - Siyah L Kevlar"
 
 ### 🔍 SEO Otomasyonu:
+
 -   **Auto Meta Title**: "{Ürün Adı} | {Kategori} | İlisan"
 -   **Auto Meta Description**: "{Ürün Kısa Açıklama} {Renk} {Beden} seçenekleri ile..."
 -   **Auto Slug Generation**: Türkçe karakterleri temizle, SEO friendly
@@ -84,6 +91,7 @@ Bu proje Laravel 11 tabanlı **İlisan E-Ticaret** sistemidir. Proje özellikler
 -   **Open Graph**: Sosyal medya paylaşım optimizasyonu
 
 ### 📸 Medya Yönetimi:
+
 -   **Ürün Ana Fotoğrafları**: Genel tanıtım görselleri
 -   **Varyant Fotoğrafları**: Her renk için özel fotoğraflar
 -   **Multiple Images**: Her varyant için çoklu görsel
@@ -91,6 +99,7 @@ Bu proje Laravel 11 tabanlı **İlisan E-Ticaret** sistemidir. Proje özellikler
 -   **Alt Text**: SEO için otomatik alt text oluşturma
 
 ### 🛒 E-Ticaret Akışı:
+
 -   **Ürün Yönetimi**: Kategoriler, varyantlar, stok takibi
 -   **Sipariş Süreci**: Sepet → Checkout → Ödeme → Kargo
 -   **Kullanıcı Deneyimi**: Hesap yönetimi, sipariş takibi, adres defteri

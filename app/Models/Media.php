@@ -67,15 +67,40 @@ class Media extends Model
     }
 
     /**
-     * Get full URL for the media file
+     * URL'i al (WebP destekli)
      */
-    public function getUrlAttribute(): string
+    public function getUrl(bool $preferWebP = true): string
     {
-        if ($this->disk === 'public') {
-            return Storage::disk('public')->url($this->filename);
+        $hasWebP = $this->attributes['has_webp'] ?? false;
+        $webpPath = $this->attributes['webp_path'] ?? null;
+
+        // WebP varsa ve tercih ediliyorsa
+        if ($preferWebP && $hasWebP && $webpPath) {
+            return Storage::disk('products')->url($webpPath);
         }
 
-        return Storage::disk($this->disk)->url($this->filename);
+        return Storage::disk('products')->url($this->path);
+    }
+
+    /**
+     * Tüm varyantları al
+     */
+    public function getVariants(): array
+    {
+        return [
+            'original' => $this->getUrl(false),
+            'webp' => $this->getUrl(true),
+            'thumbnail' => $this->getThumbnailUrl(),
+        ];
+    }
+
+    /**
+     * Thumbnail URL'i
+     */
+    public function getThumbnailUrl(): string
+    {
+        // Gelecekte thumbnail logic'i buraya gelecek
+        return $this->getUrl();
     }
 
     /**
