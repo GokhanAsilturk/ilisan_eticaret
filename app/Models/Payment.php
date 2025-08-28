@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Payment Model
- * 
+ *
  * Handles payment transactions for orders
  */
 class Payment extends Model
@@ -29,15 +30,14 @@ class Payment extends Model
     ];
 
     protected $casts = [
+        'status' => PaymentStatus::class,
         'gateway_response' => 'array',
-        'metadata' => 'array', 
+        'metadata' => 'array',
         'amount' => 'decimal:2',
         'authorized_at' => 'datetime',
         'captured_at' => 'datetime',
         'failed_at' => 'datetime',
-    ];
-
-    /**
+    ];    /**
      * Payment belongs to an Order
      */
     public function order(): BelongsTo
@@ -50,7 +50,7 @@ class Payment extends Model
      */
     public function isSuccessful(): bool
     {
-        return in_array($this->status, ['authorized', 'captured']);
+        return in_array($this->status, [PaymentStatus::AUTHORIZED, PaymentStatus::CAPTURED]);
     }
 
     /**
@@ -58,7 +58,7 @@ class Payment extends Model
      */
     public function isPending(): bool
     {
-        return $this->status === 'pending';
+        return $this->status === PaymentStatus::PENDING;
     }
 
     /**
@@ -66,6 +66,6 @@ class Payment extends Model
      */
     public function isFailed(): bool
     {
-        return in_array($this->status, ['failed', 'cancelled']);
+        return in_array($this->status, [PaymentStatus::FAILED, PaymentStatus::CANCELLED]);
     }
 }

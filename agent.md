@@ -121,32 +121,24 @@ Global exception handler ve best practices:
 -   **Order İlişkileri** ✅ (payments, shipment relations eklendi)
 
 **Çıktı**: Ödeme ve kargo sistemi modelleri hazır, migrations çalıştı, Order ilişkileri kuruldu
--   **Shipment** (order_id, tracking_number, status, shipped_at, delivered_at, carrier, tracking_url)
--   **Coupon** (code, type, value, minimum_amount, usage_limit, used_count, starts_at, expires_at, is_active)
 
-### [ ] 2.5 Medya ve Yardımcı Modeller
+### [✅] 2.5 Medya ve Yardımcı Modeller
 
--   **Media** (mediable_type, mediable_id, filename, disk, mime_type, size, alt_text, title, sort_order)
--   **AuditLog** (user_id, event, auditable_type, auditable_id, old_values, new_values, url, ip_address, user_agent)
+-   **Media** ✅ (mediable_type, mediable_id, filename, disk, mime_type, size, alt_text, title, sort_order)
+-   **AuditLog** ✅ (user_id, event, auditable_type, auditable_id, old_values, new_values, url, ip_address, user_agent)
 
-### [ ] 2.5 Medya ve Yardımcı Modeller
+**Çıktı**: Medya ve audit log sistemi hazır, polymorphic relations kuruldu
 
--   **Media** (mediable_type, mediable_id, filename, disk, mime_type, size, alt_text, title, sort_order)
--   **AuditLog** (user_id, event, auditable_type, auditable_id, old_values, new_values, url, ip_address, user_agent)
-
-### [ ] 2.6 Enum'lar ve İlişkiler
+### [✅] 2.6 Enum'lar ve İlişkiler
 
 Enum'ları oluştur:
 
--   **OrderStatus**: (pending, paid, processing, shipped, delivered, cancelled, refunded)
--   **PaymentStatus**: (pending, authorized, captured, failed, refunded, cancelled)
--   **ShipmentStatus**: (pending, processing, shipped, in_transit, delivered, exception)
--   **CouponType**: (fixed, percentage)
--   **AddressType**: (shipping, billing)
+-   **OrderStatus** ✅ (pending, paid, processing, shipped, delivered, cancelled, refunded)
+-   **PaymentStatus** ✅ (pending, authorized, captured, failed, refunded, cancelled)
+-   **ShipmentStatus** ✅ (pending, processing, shipped, in_transit, delivered, exception)
+-   **AddressType** ✅ (shipping, billing)
 
-### [ ] 2.6 Enum'lar ve İlişkiler
-
-Enum'ları oluştur:
+**Çıktı**: Enum'lar ve model ilişkileri tamamlandı, Payment/Shipment modellerde enum'lar kullanılıyor
 
 -   **OrderStatus**: (pending, paid, processing, shipped, delivered, cancelled, refunded)
 -   **PaymentStatus**: (pending, authorized, captured, failed, refunded, cancelled)

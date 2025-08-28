@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\ShipmentStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -31,6 +32,7 @@ class Shipment extends Model
     ];
 
     protected $casts = [
+        'status' => ShipmentStatus::class,
         'tracking_data' => 'array',
         'dimensions' => 'array',
         'shipping_cost' => 'decimal:2',
@@ -53,7 +55,7 @@ class Shipment extends Model
      */
     public function isDelivered(): bool
     {
-        return $this->status === 'delivered';
+        return $this->status === ShipmentStatus::DELIVERED;
     }
 
     /**
@@ -61,7 +63,7 @@ class Shipment extends Model
      */
     public function isInTransit(): bool
     {
-        return in_array($this->status, ['shipped', 'in_transit']);
+        return in_array($this->status, [ShipmentStatus::SHIPPED, ShipmentStatus::IN_TRANSIT]);
     }
 
     /**
