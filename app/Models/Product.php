@@ -190,7 +190,7 @@ class Product extends Model
 
         if ($variant->attributes) {
             $attributes = collect($variant->attributes)
-                ->map(function ($value, $key) {
+                ->map(function ($value) {
                     return \Str::slug($value);
                 })
                 ->implode('-');
