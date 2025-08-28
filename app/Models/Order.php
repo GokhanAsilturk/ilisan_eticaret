@@ -198,7 +198,9 @@ class Order extends Model
     public function getFormattedBillingAddressAttribute(): string
     {
         $address = $this->billing_address;
-        if (!$address) return '';
+        if (!$address) {
+            return '';
+        }
 
         return sprintf(
             "%s %s
@@ -222,7 +224,9 @@ class Order extends Model
     public function getFormattedShippingAddressAttribute(): string
     {
         $address = $this->shipping_address;
-        if (!$address) return '';
+        if (!$address) {
+            return '';
+        }
 
         return sprintf(
             "%s %s

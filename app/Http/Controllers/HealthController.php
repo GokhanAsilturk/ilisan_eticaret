@@ -23,6 +23,8 @@ class HealthController
             'version' => config('app.version', '1.0.0'),
             'environment' => app()->environment(),
         ]);
+
+
     }
 
     /**
