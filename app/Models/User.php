@@ -19,9 +19,17 @@ class User extends Authenticatable implements FilamentUser
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'phone',
+        'birth_date',
+        'gender',
+        'preferences',
+        'is_active',
+        'last_login_at',
+        'last_login_ip',
     ];
 
     /**
@@ -46,7 +54,27 @@ class User extends Authenticatable implements FilamentUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'birth_date' => 'date',
+            'preferences' => 'array',
+            'is_active' => 'boolean',
+            'last_login_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Full name accessor
+     */
+    public function getFullNameAttribute(): string
+    {
+        return trim($this->first_name . ' ' . $this->last_name);
+    }
+
+    /**
+     * Name accessor for Filament compatibility
+     */
+    public function getNameAttribute(): string
+    {
+        return $this->getFullNameAttribute();
     }
 
     /**
@@ -54,6 +82,15 @@ class User extends Authenticatable implements FilamentUser
      */
     public function canAccessPanel(Panel $panel): bool
     {
-        return str_ends_with($this->email, '@ilisan.com.tr') && $this->hasVerifiedEmail();
+        // Admin panel'e erişim için admin email domain kontrolü
+        return str_ends_with($this->email, '@ilisan.com');
+    }
+
+    /**
+     * Get the user's display name for Filament
+     */
+    public function getFilamentName(): string
+    {
+        return $this->name ?? $this->email;
     }
 }

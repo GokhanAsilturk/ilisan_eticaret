@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('session_id')->nullable()->index();
             $table->timestamp('expires_at')->nullable();
-            $table->json('metadata')->nullable(); // Coupon, notes, etc.
+            $table->json('metadata')->nullable(); // Additional data, notes, etc.
             $table->timestamps();
 
             // Indexes

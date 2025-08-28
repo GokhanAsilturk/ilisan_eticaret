@@ -42,7 +42,7 @@ return new class extends Migration
             $table->timestamp('delivered_at')->nullable();
 
             // Metadata
-            $table->json('metadata')->nullable(); // Coupon codes, notes, etc.
+            $table->json('metadata')->nullable(); // Additional data, notes, etc.
             $table->text('notes')->nullable();
 
             $table->timestamps();

@@ -65,10 +65,11 @@ class SecurityHeadersMiddleware
         $policies = [
             "default-src 'self'",
             "script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net unpkg.com",
-            "style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.jsdelivr.net",
-            "font-src 'self' fonts.gstatic.com",
-            "img-src 'self' data: blob: *.amazonaws.com *.cloudfront.net localhost:9000",
+            "style-src 'self' 'unsafe-inline' fonts.googleapis.com fonts.bunny.net cdn.jsdelivr.net",
+            "font-src 'self' fonts.gstatic.com fonts.bunny.net",
+            "img-src 'self' data: blob: *.amazonaws.com *.cloudfront.net localhost:9000 ui-avatars.com",
             "media-src 'self' *.amazonaws.com *.cloudfront.net",
+            "connect-src 'self' ws://localhost:* http://localhost:*",
             "object-src 'none'",
             "base-uri 'self'",
             "form-action 'self' sandbox-api.iyzipay.com api.iyzipay.com",
@@ -76,9 +77,9 @@ class SecurityHeadersMiddleware
             "upgrade-insecure-requests",
         ];
 
-        // Development specific policies
+        // Development specific policies - additional debug settings
         if (config('app.debug')) {
-            $policies[] = "connect-src 'self' ws://localhost:* http://localhost:*";
+            // Additional debug-specific policies can be added here if needed
         }
 
         return implode('; ', $policies);
