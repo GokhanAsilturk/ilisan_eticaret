@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HealthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -9,3 +10,8 @@ Route::get('/', function () {
         'status' => 'running'
     ]);
 });
+
+// Health check endpoints
+Route::get('/health', [HealthController::class, 'basic']);
+Route::get('/health/detailed', [HealthController::class, 'detailed']);
+Route::get('/status', [HealthController::class, 'basic']); // Alias

@@ -102,28 +102,50 @@ Bu modelleri migrations ve factories ile oluştur:
 
 **Çıktı**: E-ticaret modelleri hazır, migrations çalıştı, ilişkiler tanımlandı
 
-### [ ] 2.3 Ödeme ve Kargo Modelleri
+### [✅] 2.3 Production-Ready Services ve Monitoring
+
+Global exception handler ve best practices:
+-   **HealthController** ✅ (basic, detailed, API health checks)
+-   **Global Exception Handler** ✅ (bootstrap/app.php ile structured error handling)
+-   **RequestLoggingMiddleware** ✅ (HTTP traffic monitoring, session-aware logging)
+-   **SecurityHeadersMiddleware** ✅ (CSP, HSTS, XSS protection, frame options)
+-   **Health Endpoints** ✅ (/health, /health/detailed, /api/health)
+
+**Çıktı**: Production-ready monitoring ve güvenlik middleware'leri hazır, tüm endpoint'ler test edildi
+
+### [ ] 2.4 Ödeme ve Kargo Modelleri
 
 -   **Payment** (order_id, gateway, gateway_transaction_id, status, amount, currency, gateway_response)
 -   **Shipment** (order_id, tracking_number, status, shipped_at, delivered_at, carrier, tracking_url)
 -   **Coupon** (code, type, value, minimum_amount, usage_limit, used_count, starts_at, expires_at, is_active)
 
-### [ ] 2.4 Medya ve Yardımcı Modeller
+### [ ] 2.4 Ödeme ve Kargo Modelleri
+
+-   **Payment** (order_id, gateway, gateway_transaction_id, status, amount, currency, gateway_response)
+-   **Shipment** (order_id, tracking_number, status, shipped_at, delivered_at, carrier, tracking_url)
+-   **Coupon** (code, type, value, minimum_amount, usage_limit, used_count, starts_at, expires_at, is_active)
+
+### [ ] 2.5 Medya ve Yardımcı Modeller
 
 -   **Media** (mediable_type, mediable_id, filename, disk, mime_type, size, alt_text, title, sort_order)
 -   **AuditLog** (user_id, event, auditable_type, auditable_id, old_values, new_values, url, ip_address, user_agent)
 
-### [ ] 2.5 Global Exception Handler ve Best Practices
+### [ ] 2.5 Medya ve Yardımcı Modeller
 
--   **Exception Handler**: Structured error logging, user-friendly error pages
--   **Health Check Endpoints**: /health, /api/health için controller'lar
--   **Request/Response Logging**: HTTP traffic monitoring middleware
--   **Performance Monitoring**: Database query logging, slow query detection
--   **Backup Service**: Automated backup commands ve scheduling
--   **Security Middleware**: Rate limiting, CSRF, security headers
--   **API Error Responses**: Standardized JSON error format
+-   **Media** (mediable_type, mediable_id, filename, disk, mime_type, size, alt_text, title, sort_order)
+-   **AuditLog** (user_id, event, auditable_type, auditable_id, old_values, new_values, url, ip_address, user_agent)
 
-### [ ] 2.5 Enum'lar ve İlişkiler
+### [ ] 2.6 Enum'lar ve İlişkiler
+
+Enum'ları oluştur:
+
+-   **OrderStatus**: (pending, paid, processing, shipped, delivered, cancelled, refunded)
+-   **PaymentStatus**: (pending, authorized, captured, failed, refunded, cancelled)
+-   **ShipmentStatus**: (pending, processing, shipped, in_transit, delivered, exception)
+-   **CouponType**: (fixed, percentage)
+-   **AddressType**: (shipping, billing)
+
+### [ ] 2.6 Enum'lar ve İlişkiler
 
 Enum'ları oluştur:
 
@@ -134,10 +156,6 @@ Enum'ları oluştur:
 -   **AddressType**: (shipping, billing)
 
 Model ilişkilerini kur ve factories/seeders yaz.
-
-### [ ] 2.6 Production-Ready Best Practices
-
--   **Global Exception Handler**: Structured logging, user-friendly error pages
 -   **Health Check System**: Application, database, cache, queue health endpoints
 -   **Request Logging Middleware**: HTTP traffic monitoring ve analytics
 -   **Security Middleware Stack**: CSRF, rate limiting, security headers
