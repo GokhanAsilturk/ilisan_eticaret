@@ -21,13 +21,13 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Global middleware
         $middleware->append(\App\Http\Middleware\SecurityHeadersMiddleware::class);
-        
+
         // Web middleware group
         $middleware->web(append: [
             \App\Http\Middleware\RequestLoggingMiddleware::class,
         ]);
 
-        // API middleware group  
+        // API middleware group
         $middleware->api(append: [
             \App\Http\Middleware\RequestLoggingMiddleware::class,
         ]);
@@ -90,7 +90,7 @@ return Application::configure(basePath: dirname(__DIR__))
             // API error response
             if ($request->is('api/*')) {
                 $statusCode = method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 500;
-                
+
                 return response()->json([
                     'message' => config('app.debug') ? $e->getMessage() : 'Internal Server Error',
                     'error_code' => 'INTERNAL_ERROR',

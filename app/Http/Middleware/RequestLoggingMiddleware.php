@@ -18,15 +18,15 @@ class RequestLoggingMiddleware
     {
         $startTime = microtime(true);
         $requestId = (string) \Str::uuid();
-        
+
         // Request logging
         $this->logRequest($request, $requestId);
-        
+
         $response = $next($request);
-        
+
         // Response logging
         $this->logResponse($request, $response, $startTime, $requestId);
-        
+
         return $response;
     }
 
@@ -70,7 +70,7 @@ class RequestLoggingMiddleware
         }
 
         $responseTime = round((microtime(true) - $startTime) * 1000, 2);
-        
+
         $data = [
             'request_id' => $requestId,
             'status_code' => $response->getStatusCode(),
@@ -100,7 +100,7 @@ class RequestLoggingMiddleware
     {
         $skipPatterns = [
             'health',
-            'status', 
+            'status',
             'up',
             '_debugbar',
             'telescope',
@@ -131,7 +131,7 @@ class RequestLoggingMiddleware
     private function containsSensitiveData(Request $request): bool
     {
         $sensitiveFields = ['password', 'token', 'secret', 'key', 'card'];
-        
+
         foreach ($sensitiveFields as $field) {
             if ($request->has($field) || str_contains(strtolower($request->path()), $field)) {
                 return true;

@@ -79,7 +79,7 @@ class HealthController
         try {
             $configCached = file_exists(base_path('bootstrap/cache/config.php'));
             $routesCached = file_exists(base_path('bootstrap/cache/routes-v7.php'));
-            
+
             return [
                 'status' => 'ok',
                 'config_cached' => $configCached,
@@ -105,7 +105,7 @@ class HealthController
             $responseTime = round((microtime(true) - $start) * 1000, 2);
 
             $connection = config('database.default');
-            
+
             return [
                 'status' => 'ok',
                 'connection' => $connection,
@@ -127,11 +127,11 @@ class HealthController
         try {
             $key = 'health_check_' . time();
             $value = 'test';
-            
+
             Cache::put($key, $value, 10);
             $retrieved = Cache::get($key);
             Cache::forget($key);
-            
+
             return [
                 'status' => $retrieved === $value ? 'ok' : 'error',
                 'driver' => config('cache.default'),
@@ -152,11 +152,11 @@ class HealthController
         try {
             // Check if Redis connection for queues is working
             $connection = config('queue.default');
-            
+
             if ($connection === 'redis') {
                 Redis::connection('default')->ping();
             }
-            
+
             return [
                 'status' => 'ok',
                 'connection' => $connection,
@@ -177,11 +177,11 @@ class HealthController
         try {
             $disk = config('filesystems.default');
             $testFile = 'health_check_' . time() . '.txt';
-            
+
             \Storage::disk('local')->put($testFile, 'test');
             $exists = \Storage::disk('local')->exists($testFile);
             \Storage::disk('local')->delete($testFile);
-            
+
             return [
                 'status' => $exists ? 'ok' : 'error',
                 'default_disk' => $disk,
