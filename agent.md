@@ -114,15 +114,13 @@ Global exception handler ve best practices:
 
 **Çıktı**: Production-ready monitoring ve güvenlik middleware'leri hazır, tüm endpoint'ler test edildi
 
-### [ ] 2.4 Ödeme ve Kargo Modelleri
+### [✅] 2.4 Ödeme ve Kargo Modelleri
 
--   **Payment** (order_id, gateway, gateway_transaction_id, status, amount, currency, gateway_response)
--   **Shipment** (order_id, tracking_number, status, shipped_at, delivered_at, carrier, tracking_url)
--   **Coupon** (code, type, value, minimum_amount, usage_limit, used_count, starts_at, expires_at, is_active)
+-   **Payment** ✅ (order_id, gateway, gateway_transaction_id, status, amount, currency, gateway_response, metadata, timestamps)
+-   **Shipment** ✅ (order_id, tracking_number, status, carrier, tracking_url, shipping_cost, weight, dimensions, timestamps)
+-   **Order İlişkileri** ✅ (payments, shipment relations eklendi)
 
-### [ ] 2.4 Ödeme ve Kargo Modelleri
-
--   **Payment** (order_id, gateway, gateway_transaction_id, status, amount, currency, gateway_response)
+**Çıktı**: Ödeme ve kargo sistemi modelleri hazır, migrations çalıştı, Order ilişkileri kuruldu
 -   **Shipment** (order_id, tracking_number, status, shipped_at, delivered_at, carrier, tracking_url)
 -   **Coupon** (code, type, value, minimum_amount, usage_limit, used_count, starts_at, expires_at, is_active)
 
