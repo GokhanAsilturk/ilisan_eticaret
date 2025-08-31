@@ -196,7 +196,18 @@ Bu servisleri oluştur:
 
 ## HAFTA 4: Checkout ve iyzico Entegrasyonu
 
-### [ ] 4.1 Checkout Flow
+### [✅] 4.1 Application Services
+
+Bu servisleri oluştur:
+
+-   **PricingService** ✅: vergi hesaplama, indirim uygulama, final price hesaplama, kargo maliyeti
+-   **StockService** ✅: stok kontrolü, rezervasyon, serbest bırakma, stok durumu kontrol
+-   **CartService** ✅: ürün ekleme/çıkarma/güncelleme, cart temizleme, sepet birleştirme
+-   **CheckoutService** ✅: adres doğrulama → kargo hesaplama → ödeme hazırlık, sipariş oluşturma
+
+**Çıktı**: Tüm temel application services hazır, dependency injection active, test edildi
+
+### [ ] 4.2 Multi-step Checkout Flow
 
 Multi-step checkout oluştur:
 
@@ -206,7 +217,7 @@ Multi-step checkout oluştur:
 -   **Step 4**: Payment method, order review
 -   **Step 5**: Order confirmation
 
-### [ ] 4.2 iyzico Payment Service
+### [ ] 4.3 iyzico Payment Service
 
 -   **IyzicoPaymentService** oluştur
 -   3D Secure checkout form implementasyonu
@@ -215,7 +226,7 @@ Multi-step checkout oluştur:
 -   Error handling ve retry logic
 -   Sandbox test kartları ile test
 
-### [ ] 4.3 Payment Flow Implementation
+### [ ] 4.4 Payment Flow Implementation
 
 -   Payment form creation ve redirect
 -   Success/failure page handling
@@ -223,7 +234,7 @@ Multi-step checkout oluştur:
 -   Idempotency key kullanımı
 -   Payment capture/void/refund endpoints
 
-### [ ] 4.4 Order Management
+### [ ] 4.5 Order Management
 
 -   Order creation logic
 -   Stock reservation/release

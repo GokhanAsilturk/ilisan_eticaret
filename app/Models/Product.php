@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Model
 {
@@ -43,11 +44,49 @@ class Product extends Model
     ];
 
     /**
+     * Global scope for active products
+     */
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('is_active', true);
+    }
+
+    /**
+     * Global scope for featured products
+     */
+    public function scopeFeatured(Builder $query): Builder
+    {
+        return $query->where('is_featured', true);
+    }
+
+    /**
+     * Scope for products with stock
+     */
+    public function scopeInStock(Builder $query): Builder
+    {
+        return $query->whereHas('variants.inventory', function (Builder $q) {
+            $q->where('stock_quantity', '>', 0);
+        });
+    }
+
+    /**
+     * Scope for search with optimized indexes
+     */
+    public function scopeSearch(Builder $query, string $term): Builder
+    {
+        return $query->where(function (Builder $q) use ($term) {
+            $q->where('name', 'ILIKE', "%{$term}%")
+              ->orWhere('sku', 'ILIKE', "%{$term}%")
+              ->orWhere('short_description', 'ILIKE', "%{$term}%");
+        });
+    }
+
+    /**
      * Product category
      */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class)->select(['id', 'name', 'slug', 'parent_id']);
     }
 
     /**

@@ -17,10 +17,12 @@ return Application::configure(basePath: dirname(__DIR__))
             'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
             'request.logging' => \App\Http\Middleware\RequestLoggingMiddleware::class,
             'security.headers' => \App\Http\Middleware\SecurityHeadersMiddleware::class,
+            'performance' => \App\Http\Middleware\PerformanceMiddleware::class,
         ]);
 
         // Global middleware
         $middleware->append(\App\Http\Middleware\SecurityHeadersMiddleware::class);
+        $middleware->append(\App\Http\Middleware\PerformanceMiddleware::class);
 
         // Web middleware group
         $middleware->web(append: [
