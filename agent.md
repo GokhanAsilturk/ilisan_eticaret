@@ -207,7 +207,28 @@ Bu servisleri oluştur:
 
 **Çıktı**: Tüm temel application services hazır, dependency injection active, test edildi
 
-### [ ] 4.2 Multi-step Checkout Flow
+### [✅] 4.2 API Layer for Frontend
+
+Complete RESTful API endpoints oluştur:
+
+-   **AuthController** ✅: register, login, logout, profile management, address CRUD
+-   **ProductController** ✅: product listing, search, filters, categories, variants
+-   **CartController** ✅: cart CRUD operations, guest cart support, cart merging
+-   **CheckoutController** ✅: cart validation, shipping calculator, order creation
+-   **OrderController** ✅: order listing, details, cancel, reorder, tracking
+
+**Features**: 
+- Laravel Sanctum token authentication
+- Guest cart with session tokens
+- Cart merging on login/registration
+- Advanced product filtering ve search
+- Complete address management
+- Order management with status tracking
+- API documentation with examples
+
+**Çıktı**: Backend API layer complete - ready for external frontend integration
+
+### [ ] 4.3 Multi-step Checkout Flow
 
 Multi-step checkout oluştur:
 
@@ -217,7 +238,7 @@ Multi-step checkout oluştur:
 -   **Step 4**: Payment method, order review
 -   **Step 5**: Order confirmation
 
-### [ ] 4.3 iyzico Payment Service
+### [ ] 4.4 iyzico Payment Service
 
 -   **IyzicoPaymentService** oluştur
 -   3D Secure checkout form implementasyonu
@@ -226,7 +247,7 @@ Multi-step checkout oluştur:
 -   Error handling ve retry logic
 -   Sandbox test kartları ile test
 
-### [ ] 4.4 Payment Flow Implementation
+### [ ] 4.5 Payment Flow Implementation
 
 -   Payment form creation ve redirect
 -   Success/failure page handling
@@ -234,7 +255,7 @@ Multi-step checkout oluştur:
 -   Idempotency key kullanımı
 -   Payment capture/void/refund endpoints
 
-### [ ] 4.5 Order Management
+### [ ] 4.6 Order Management
 
 -   Order creation logic
 -   Stock reservation/release
