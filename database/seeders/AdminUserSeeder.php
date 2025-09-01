@@ -18,6 +18,7 @@ class AdminUserSeeder extends Seeder
                 'email' => 'admin@ilisan.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('admin123'),
+                'role' => 'admin',
                 'is_active' => true,
             ]
         );

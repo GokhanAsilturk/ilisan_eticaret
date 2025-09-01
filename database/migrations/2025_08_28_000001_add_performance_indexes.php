@@ -92,13 +92,6 @@ return new class extends Migration
             $table->index(['mediable_type', 'mediable_id'], 'media_mediable_idx');
             $table->index('sort_order', 'media_sort_order_idx');
         });
-
-        // Audit logs table indexes
-        Schema::table('audit_logs', function (Blueprint $table) {
-            $table->index(['auditable_type', 'auditable_id'], 'audit_logs_auditable_idx');
-            $table->index(['user_id', 'created_at'], 'audit_logs_user_created_idx');
-            $table->index('event', 'audit_logs_event_idx');
-        });
     }
 
     /**
@@ -172,12 +165,6 @@ return new class extends Migration
         Schema::table('media', function (Blueprint $table) {
             $table->dropIndex('media_mediable_idx');
             $table->dropIndex('media_sort_order_idx');
-        });
-
-        Schema::table('audit_logs', function (Blueprint $table) {
-            $table->dropIndex('audit_logs_auditable_idx');
-            $table->dropIndex('audit_logs_user_created_idx');
-            $table->dropIndex('audit_logs_event_idx');
         });
     }
 };

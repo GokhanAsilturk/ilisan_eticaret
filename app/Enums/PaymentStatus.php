@@ -5,6 +5,7 @@ namespace App\Enums;
 enum PaymentStatus: string
 {
     case PENDING = 'pending';
+    case PROCESSING = 'processing';
     case AUTHORIZED = 'authorized';
     case CAPTURED = 'captured';
     case FAILED = 'failed';
@@ -15,6 +16,7 @@ enum PaymentStatus: string
     {
         return match ($this) {
             self::PENDING => 'Beklemede',
+            self::PROCESSING => 'İşleniyor',
             self::AUTHORIZED => 'Yetkilendirildi',
             self::CAPTURED => 'Tahsil Edildi',
             self::FAILED => 'Başarısız',
@@ -27,6 +29,7 @@ enum PaymentStatus: string
     {
         return match ($this) {
             self::PENDING => 'warning',
+            self::PROCESSING => 'info',
             self::AUTHORIZED => 'info',
             self::CAPTURED => 'success',
             self::FAILED => 'danger',

@@ -25,6 +25,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->id('admin')
             ->path('admin')
+            ->brandName('İlisan Admin')
             ->colors([
                 'primary' => Color::Amber,
             ])

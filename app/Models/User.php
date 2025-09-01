@@ -26,6 +26,7 @@ class User extends Authenticatable implements FilamentUser
         'phone',
         'birth_date',
         'gender',
+        'role',
         'preferences',
         'is_active',
         'last_login_at',
@@ -55,6 +56,8 @@ class User extends Authenticatable implements FilamentUser
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'birth_date' => 'date',
+            'gender' => \App\Enums\Gender::class,
+            'role' => \App\Enums\UserRole::class,
             'preferences' => 'array',
             'is_active' => 'boolean',
             'last_login_at' => 'datetime',
@@ -78,12 +81,35 @@ class User extends Authenticatable implements FilamentUser
     }
 
     /**
+     * Gender mutator - Türkçe değerleri İngilizce'ye çevirir
+     */
+    public function setGenderAttribute($value): void
+    {
+        if (is_string($value)) {
+            $genderEnum = \App\Enums\Gender::fromTurkish($value);
+            $this->attributes['gender'] = $genderEnum?->value ?? $value;
+        } else {
+            $this->attributes['gender'] = $value;
+        }
+    }
+
+    /**
      * Determine if the user can access the given Filament panel.
+     */
+    /**
+     * Admin kontrolü - Filament için
      */
     public function canAccessPanel(Panel $panel): bool
     {
-        // Admin panel'e erişim için admin email domain kontrolü
-        return str_ends_with($this->email, '@ilisan.com');
+        return $this->role === \App\Enums\UserRole::ADMIN;
+    }
+
+    /**
+     * Admin mi kontrol et
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === \App\Enums\UserRole::ADMIN;
     }
 
     /**
