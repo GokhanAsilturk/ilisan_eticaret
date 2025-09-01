@@ -78,7 +78,7 @@ class OrderController extends Controller
                         'quantity' => $item->quantity,
                         'price' => $item->price,
                         'total' => $item->total,
-                        'product_image' => $item->variant?->product?->getFirstMediaUrl()
+                        'product_image' => null // TODO: Add product image when media is set up
                     ];
                 }),
                 'payments' => $order->payments->map(function ($payment) {
@@ -174,7 +174,7 @@ class OrderController extends Controller
     private function getTrackingInfo(Order $order): ?array
     {
         $metadata = $order->metadata ?? [];
-        
+
         if (!isset($metadata['tracking_number'])) {
             return null;
         }

@@ -5,12 +5,35 @@ use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\TestController;
+use App\Http\Controllers\Api\ApiTestController;
+use App\Http\Controllers\Api\PaymentTestController;
+use App\Http\Controllers\Api\v1\PaymentController;
 use App\Http\Controllers\HealthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // API Health check
 Route::get('/health', [HealthController::class, 'api']);
+
+// Test endpoint
+Route::get('/test', [TestController::class, 'test']);
+
+// API Test endpoints (database independent)
+Route::prefix('api-test')->group(function () {
+    Route::get('/ping', [ApiTestController::class, 'ping']);
+    Route::get('/auth-headers', [ApiTestController::class, 'authTest']);
+    Route::post('/post-data', [ApiTestController::class, 'postTest']);
+    Route::post('/validation', [ApiTestController::class, 'validationTest']);
+    Route::get('/error', [ApiTestController::class, 'errorTest']);
+});
+
+// Payment Test endpoints (debug mode only)
+Route::prefix('payment-test')->group(function () {
+    Route::get('/cards', [PaymentTestController::class, 'getTestCards']);
+    Route::get('/config', [PaymentTestController::class, 'getPaymentConfig']);
+    Route::get('/sample-request', [PaymentTestController::class, 'getSamplePaymentRequest']);
+});
 
 // Public routes
 Route::prefix('auth')->group(function () {
@@ -44,7 +67,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/', [AuthController::class, 'updateProfile']);
         Route::put('/password', [AuthController::class, 'changePassword']);
         Route::post('/logout', [AuthController::class, 'logout']);
-        
+
         // Address management
         Route::get('/addresses', [AuthController::class, 'addresses']);
         Route::post('/addresses', [AuthController::class, 'storeAddress']);
@@ -67,6 +90,19 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{orderNumber}/cancel', [OrderController::class, 'cancel']);
         Route::post('/{orderNumber}/reorder', [OrderController::class, 'reorder']);
     });
+
+    // Payment routes
+    Route::prefix('payment')->group(function () {
+        Route::post('/initiate', [PaymentController::class, 'initiatePayment']);
+        Route::get('/{paymentId}/status', [PaymentController::class, 'getPaymentStatus']);
+        Route::post('/{paymentId}/refund', [PaymentController::class, 'requestRefund']);
+    });
+});
+
+// Public payment callback routes (webhook)
+Route::prefix('payment')->group(function () {
+    Route::post('/iyzico/callback', [PaymentController::class, 'handle3DCallback'])->name('payment.iyzico.callback');
+    Route::post('/iyzico/webhook', [PaymentController::class, 'handleWebhook'])->name('payment.iyzico.webhook');
 });
 
 // Fallback user route

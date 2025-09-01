@@ -21,18 +21,18 @@ class CheckoutService
     public function validateCart(Cart $cart): array
     {
         $errors = [];
-        
+
         if ($cart->items->isEmpty()) {
             $errors[] = 'Sepet boş';
             return $errors;
         }
-        
+
         foreach ($cart->items as $item) {
             if (!$this->stockService->isInStock($item->variant, $item->quantity)) {
                 $errors[] = "{$item->variant->product->name} ürünü stokta yetersiz";
             }
         }
-        
+
         return $errors;
     }
 
@@ -40,7 +40,7 @@ class CheckoutService
     {
         $cartSummary = $this->cartService->getCartSummary($cart);
         $shippingCost = $this->pricingService->calculateShippingCost($cartSummary['total'], $address->city);
-        
+
         return [
             'cost' => $shippingCost,
             'estimated_days' => $this->getEstimatedDeliveryDays($address->city),
@@ -51,7 +51,7 @@ class CheckoutService
     private function getEstimatedDeliveryDays(string $city): int
     {
         $majorCities = ['İstanbul', 'Ankara', 'İzmir', 'Bursa', 'Antalya'];
-        
+
         return in_array($city, $majorCities) ? 1 : 3;
     }
 
@@ -60,13 +60,13 @@ class CheckoutService
         return DB::transaction(function () use ($cart, $user, $shippingAddress, $billingAddress) {
             $cartSummary = $this->cartService->getCartSummary($cart);
             $shipping = $this->calculateShipping($shippingAddress, $cart);
-            
+
             foreach ($cart->items as $item) {
                 if (!$this->stockService->reserveStock($item->variant, $item->quantity)) {
                     throw new \Exception("Stok rezervasyon hatası: {$item->variant->product->name}");
                 }
             }
-            
+
             $order = Order::create([
                 'order_number' => $this->generateOrderNumber(),
                 'user_id' => $user->id,
@@ -82,7 +82,7 @@ class CheckoutService
                     'cart_id' => $cart->id
                 ]
             ]);
-            
+
             foreach ($cart->items as $item) {
                 $order->items()->create([
                     'variant_id' => $item->variant_id,
@@ -97,7 +97,7 @@ class CheckoutService
                     'weight' => $item->variant->weight
                 ]);
             }
-            
+
             return $order;
         });
     }
@@ -107,7 +107,7 @@ class CheckoutService
         do {
             $orderNumber = 'ILS-' . now()->format('Ymd') . '-' . strtoupper(Str::random(6));
         } while (Order::where('order_number', $orderNumber)->exists());
-        
+
         return $orderNumber;
     }
 
@@ -116,7 +116,7 @@ class CheckoutService
         foreach ($order->items as $item) {
             $this->stockService->confirmStock($item->variant, $item->quantity);
         }
-        
+
         $order->update(['status' => OrderStatus::CONFIRMED]);
     }
 
@@ -125,7 +125,7 @@ class CheckoutService
         foreach ($order->items as $item) {
             $this->stockService->releaseStock($item->variant, $item->quantity);
         }
-        
+
         $order->update(['status' => OrderStatus::CANCELLED]);
     }
 }

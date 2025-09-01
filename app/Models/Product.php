@@ -122,32 +122,6 @@ class Product extends Model
     }
 
     /**
-     * Scope: only active products
-     */
-    public function scopeActive($query)
-    {
-        return $query->where('is_active', true);
-    }
-
-    /**
-     * Scope: featured products
-     */
-    public function scopeFeatured($query)
-    {
-        return $query->where('is_featured', true);
-    }
-
-    /**
-     * Scope: products in stock
-     */
-    public function scopeInStock($query)
-    {
-        return $query->whereHas('variants.inventory', function ($q) {
-            $q->where('available_quantity', '>', 0);
-        });
-    }
-
-    /**
      * Get price range for this product
      */
     public function getPriceRange(): array

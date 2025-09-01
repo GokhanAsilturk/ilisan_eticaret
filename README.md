@@ -1,38 +1,41 @@
-# İlisan E-Ticaret
+# İlisan E-Ticaret Backend API
 
-Laravel 11 tabanlı güvenli ve ölçeklenebilir e-ticaret sistemi.
+Laravel 11 tabanlı güvenli ve ölçeklenebilir **backend API** e-ticaret sistemi. Bu proje sadece API sağlar, frontend ayrı bir proje olarak geliştirilir.
 
 ## Teknoloji Stack
 
 -   **Backend**: PHP 8.2+, Laravel 11
--   **Frontend**: Blade Templates, Tailwind CSS, Alpine.js
+-   **API**: RESTful API with Laravel Sanctum
 -   **Admin Panel**: Filament 3
 -   **Veritabanı**: PostgreSQL
 -   **Cache**: Redis
 -   **Queue**: Redis
 -   **Konteynerizasyon**: Docker & Docker Compose
--   **Ödeme**: iyzico 3D Secure
+-   **Ödeme**: iyzico 3D Secure API
 
 ## Özellikler
 
-### ✅ Temel E-Ticaret
+### ✅ Backend API
 
--   Ürün katalog yönetimi
--   Kategori bazlı organizasyon
--   Sepet yönetimi
--   Güvenli checkout süreci
--   Sipariş takip sistemi
+-   RESTful API endpoints
+-   Laravel Sanctum authentication
+-   Product/Category management API
+-   Cart & Checkout API
+-   Order management API
+-   User management API
+-   Media upload/management API
 
 ### ✅ Kullanıcı Yönetimi
 
--   Kullanıcı kaydı ve girişi
--   İki faktörlü doğrulama (2FA)
--   Profil yönetimi
--   Adres defteri
+-   User registration/login API
+-   Token-based authentication
+-   Profile management API
+-   Address management API
 
 ### ✅ Admin Paneli
 
 -   Filament 3 tabanlı modern arayüz
+-   API için admin dashboard
 -   Ürün/kategori yönetimi
 -   Sipariş yönetimi
 -   Kullanıcı yönetimi
@@ -40,27 +43,27 @@ Laravel 11 tabanlı güvenli ve ölçeklenebilir e-ticaret sistemi.
 
 ### ✅ Güvenlik
 
--   CSRF koruması
--   Rate limiting
--   Güvenlik başlıkları
+-   API rate limiting
 -   Input validation
+-   Security headers
 -   Audit logging
+-   CORS configuration
 
 ### ✅ Ödeme Sistemi
 
--   iyzico 3D Secure entegrasyonu
--   Güvenli ödeme işleme
--   Webhook handling
--   Refund yönetimi
+-   iyzico 3D Secure API entegrasyonu
+-   Payment webhook handlers
+-   Secure payment processing API
+-   Refund management API
 
 ## Kurulum
 
-### Docker ile Geliştirme Ortamı
+### Docker ile Backend API Kurulumu
 
 ```bash
 # Projeyi klonla
-git clone <repo-url> ilisan-eticaret
-cd ilisan-eticaret
+git clone <repo-url> ilisan-eticaret-api
+cd ilisan-eticaret-api
 
 # Docker konteynerlerini başlat
 make up
@@ -74,16 +77,15 @@ make artisan key:generate
 # Veritabanı migration'larını çalıştır
 make migrate
 
-# Admin kullanıcı oluştur
+# Admin kullanıcı oluştur (Filament admin)
 make artisan make:filament-user
 ```
 
-### Manuel Kurulum
+### Manuel Backend Kurulum
 
 ```bash
 # Bağımlılıkları yükle
 composer install
-npm install
 
 # Ortam dosyasını kopyala ve düzenle
 cp .env.example .env
@@ -92,10 +94,7 @@ php artisan key:generate
 # Veritabanını hazırla
 php artisan migrate --seed
 
-# Frontend assets'leri derle
-npm run build
-
-# Geliştirme sunucusunu başlat
+# API server'ı başlat
 php artisan serve
 ```
 

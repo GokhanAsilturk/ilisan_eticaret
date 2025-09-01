@@ -23,7 +23,7 @@ class CartService
                 ['expires_at' => now()->addDays(30)]
             );
         }
-        
+
         $sessionId = Session::getId();
         return Cart::firstOrCreate(
             ['session_id' => $sessionId],
@@ -36,18 +36,18 @@ class CartService
         if (!$this->stockService->isInStock($variant, $quantity)) {
             return false;
         }
-        
+
         $cart = $this->getOrCreateCart($user);
         $price = $this->pricingService->calculateVariantPrice($variant);
-        
+
         $cartItem = $cart->items()->where('variant_id', $variant->id)->first();
-        
+
         if ($cartItem) {
             $newQuantity = $cartItem->quantity + $quantity;
             if (!$this->stockService->isInStock($variant, $newQuantity)) {
                 return false;
             }
-            
+
             $cartItem->update([
                 'quantity' => $newQuantity,
                 'price' => $price
@@ -59,7 +59,7 @@ class CartService
                 'price' => $price
             ]);
         }
-        
+
         $cart->touch();
         return true;
     }
@@ -76,18 +76,18 @@ class CartService
             $this->removeItem($cartItem);
             return true;
         }
-        
+
         if (!$this->stockService->isInStock($cartItem->variant, $quantity)) {
             return false;
         }
-        
+
         $price = $this->pricingService->calculateVariantPrice($cartItem->variant);
-        
+
         $cartItem->update([
             'quantity' => $quantity,
             'price' => $price
         ]);
-        
+
         $cartItem->cart->touch();
         return true;
     }
@@ -104,7 +104,7 @@ class CartService
             $existingItem = $userCart->items()
                 ->where('variant_id', $guestItem->variant_id)
                 ->first();
-            
+
             if ($existingItem) {
                 $newQuantity = $existingItem->quantity + $guestItem->quantity;
                 $this->updateQuantity($existingItem, $newQuantity);
@@ -116,7 +116,7 @@ class CartService
                 ]);
             }
         }
-        
+
         $this->clearCart($guestCart);
     }
 

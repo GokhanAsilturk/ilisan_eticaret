@@ -12,9 +12,12 @@
   "require": {
     "php": "^8.2",
     "appstract/laravel-opcache": "^4.0",
+    "darkaonline/l5-swagger": "^9.0",
     "filament/filament": "^3.0",
     "intervention/image": "^3.11",
+    "iyzico/iyzipay-php": "^2.0",
     "laravel/framework": "^11.0",
+    "laravel/sanctum": "^4.0",
     "laravel/tinker": "^2.9"
   },
   "require-dev": {

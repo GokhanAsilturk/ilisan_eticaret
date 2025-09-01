@@ -55,7 +55,7 @@ class ProductController extends Controller
         // Sorting
         $sortBy = $request->input('sort', 'name');
         $sortOrder = $request->input('order', 'asc');
-        
+
         $allowedSorts = ['name', 'created_at', 'price'];
         if (in_array($sortBy, $allowedSorts)) {
             if ($sortBy === 'price') {
@@ -171,7 +171,7 @@ class ProductController extends Controller
             'products' => $products->map(function ($product) {
                 $minPrice = $product->variants->min('price');
                 $maxPrice = $product->variants->max('price');
-                
+
                 return [
                     'id' => $product->id,
                     'name' => $product->name,
@@ -194,7 +194,6 @@ class ProductController extends Controller
     public function categories(): JsonResponse
     {
         $categories = Category::query()
-            ->with(['parent', 'children'])
             ->where('is_active', true)
             ->whereNull('parent_id')
             ->orderBy('sort_order')
@@ -208,16 +207,7 @@ class ProductController extends Controller
                     'name' => $category->name,
                     'slug' => $category->slug,
                     'description' => $category->description,
-                    'image' => $category->getFirstMediaUrl(),
-                    'children' => $category->children->map(function ($child) {
-                        return [
-                            'id' => $child->id,
-                            'name' => $child->name,
-                            'slug' => $child->slug,
-                            'description' => $child->description,
-                            'image' => $child->getFirstMediaUrl()
-                        ];
-                    })
+                    'image' => $category->image_path
                 ];
             })
         ]);

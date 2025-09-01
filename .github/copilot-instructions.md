@@ -4,16 +4,16 @@
 
 Gereksiz yorum ekleme.
 Yorum satırlarını çok az tut.
-Bu proje Laravel 11 tabanlı **İlisan E-Ticaret** sistemidir. Proje özellikleri:
+Bu proje Laravel 11 tabanlı **İlisan E-Ticaret Backend API** sistemidir. Bu sadece backend API projesidir, frontend ayrı geliştirilecek. Proje özellikleri:
 
 ## 🛠️ Teknoloji Stack
 
 -   **Backend**: PHP 8.2+, Laravel 11
--   **Frontend**: Blade Templates, Tailwind CSS, Alpine.js
+-   **API**: RESTful API with Laravel Sanctum
 -   **Admin Panel**: Filament 3
 -   **Veritabanı**: PostgreSQL
 -   **Cache & Queue**: Redis
--   **Ödeme**: iyzico 3D Secure entegrasyonu
+-   **Ödeme**: iyzico 3D Secure API entegrasyonu
 -   **Konteynerizasyon**: Docker & Docker Compose
 -   **Test**: PHPUnit, Pest
 -   **Kalite**: Laravel Pint, PHPStan/Larastan
@@ -22,19 +22,20 @@ Bu proje Laravel 11 tabanlı **İlisan E-Ticaret** sistemidir. Proje özellikler
 
 -   **Models**: User, Product, Category, Order, Cart, Payment vb.
 -   **Services**: PricingService, StockService, CartService, CheckoutService
+-   **API Controllers**: Auth, Product, Cart, Checkout, Order APIs
 -   **Admin**: Filament 3 resources ve widgets
--   **API**: RESTful endpoints
--   **Auth**: 2FA, email verification, role-based access
+-   **API**: RESTful endpoints with Sanctum authentication
+-   **Auth**: Token-based auth, role-based access
 
 ## 🎯 Güvenlik & Kalite
 
--   **Güvenlik**: CSRF, Rate limiting, Input validation, Security headers
+-   **Güvenlik**: API rate limiting, Input validation, Security headers
 -   **Error Handling**: Global exception handler, structured logging
 -   **Monitoring**: Health checks, performance metrics, error tracking
 -   **Backup**: Automated database backups, file storage backups
 -   **Logging**: Structured logs, request/response logging, audit trails
 -   **Mimari**: Service pattern, Repository pattern (gerektiğinde)
--   **Dil**: Türkçe UI, İngilizce dokümantasyon
+-   **Dil**: Türkçe UI (admin), İngilizce API documentation
 -   **Zaman Dilimi**: Europe/Istanbul
 -   **Para Birimi**: TRY
 
@@ -125,12 +126,15 @@ Bu proje Laravel 11 tabanlı **İlisan E-Ticaret** sistemidir. Proje özellikler
 -   **Kullanıcı Deneyimi**: Hesap yönetimi, sipariş takibi, adres defteri
 -   **Admin Panel**: Sipariş yönetimi, ürün CRUD, raporlar
 
-## 🎨 Frontend Kuralları
+## 🎨 API Kuralları
 
--   **Blade**: Component'lar kullan, partial'lara böl
--   **Tailwind CSS**: Utility-first yaklaşım
--   **Alpine.js**: Minimal JavaScript etkileşimleri
--   **Responsive**: Mobile-first tasarım
+-   **Authentication**: Laravel Sanctum token-based auth
+-   **Endpoints**: RESTful resource endpoints
+-   **Validation**: Form Request classes
+-   **Responses**: Consistent JSON structure
+-   **Rate Limiting**: Per-user and global limits
+-   **Versioning**: API versioning strategy
+-   **CORS**: Configured for frontend domains
 
 ## 💳 İyzico Entegrasyonu
 

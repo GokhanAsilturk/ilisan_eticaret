@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Register cache service
         $this->app->singleton(CacheService::class);
-        
+
         // Register application services
         $this->app->singleton(PricingService::class);
         $this->app->singleton(StockService::class);

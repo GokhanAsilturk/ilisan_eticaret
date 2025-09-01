@@ -1,329 +1,360 @@
-# İlisan E-Ticaret API Endpoints
+# İlisan E-Ticaret API Documentation
 
-## Genel Bilgiler
+## Base URL
 
-- **Base URL**: `http://localhost:8000/api`
-- **Authentication**: Laravel Sanctum (Bearer Token)
-- **Content-Type**: `application/json`
+```
+http://localhost/api
+```
 
-## 🔐 Authentication Endpoints
+## Authentication
 
-### Kayıt Ol
-```http
-POST /api/auth/register
+API uses Laravel Sanctum for token-based authentication.
+
+### Headers
+
+```
+Authorization: Bearer {token}
 Content-Type: application/json
+Accept: application/json
+```
 
+---
+
+## Payment Endpoints
+
+### 1. Initiate Payment (3D Secure)
+
+**POST** `/payment/initiate`
+
+Starts a 3D Secure payment process with iyzico.
+
+**Headers:** `Authorization: Bearer {token}`
+
+**Request Body:**
+
+```json
 {
-    "name": "John Doe",
+    "order_number": "ORDER-001",
+    "card": {
+        "holder_name": "Test User",
+        "number": "5890040000000016",
+        "expire_month": "12",
+        "expire_year": "2030",
+        "cvc": "123"
+    },
+    "billing_address": {
+        "name": "Test User",
+        "address": "Test Mahallesi, Test Sokak No:1",
+        "city": "İstanbul",
+        "postal_code": "34000"
+    }
+}
+```
+
+**Success Response (200):**
+
+```json
+{
+    "success": true,
+    "data": {
+        "payment_id": "uuid",
+        "threeds_html_content": "<html>...</html>",
+        "conversation_id": "order_ORDER-001_abc123"
+    }
+}
+```
+
+### 2. Get Payment Status
+
+**GET** `/payment/{paymentId}/status`
+
+**Headers:** `Authorization: Bearer {token}`
+
+**Success Response (200):**
+
+```json
+{
+    "success": true,
+    "data": {
+        "payment_id": "uuid",
+        "order_number": "ORDER-001",
+        "status": "captured",
+        "amount": 100.5,
+        "currency": "TRY",
+        "created_at": "2024-01-01T10:00:00.000000Z",
+        "updated_at": "2024-01-01T10:05:00.000000Z"
+    }
+}
+```
+
+### 3. Request Refund
+
+**POST** `/payment/{paymentId}/refund`
+
+**Headers:** `Authorization: Bearer {token}`
+
+**Request Body:**
+
+```json
+{
+    "reason": "Customer request",
+    "amount": 50.25
+}
+```
+
+### 4. 3D Secure Callback (Public)
+
+**POST** `/payment/iyzico/callback`
+
+Handles iyzico 3D Secure callback.
+
+### 5. iyzico Webhook (Public)
+
+**POST** `/payment/iyzico/webhook`
+
+Handles iyzico webhook notifications.
+
+---
+
+## Payment Test Endpoints
+
+### 1. Get Test Cards
+
+**GET** `/payment-test/cards`
+
+Returns iyzico test cards for development.
+
+**Response:**
+
+```json
+{
+    "success": true,
+    "data": {
+        "test_cards": {
+            "5890040000000016": {
+                "number": "5890040000000016",
+                "expire_month": "12",
+                "expire_year": "2030",
+                "cvc": "123",
+                "holder_name": "Test User",
+                "description": "3D Secure başarılı kart"
+            }
+        }
+    }
+}
+```
+
+### 2. Get Payment Config
+
+**GET** `/payment-test/config`
+
+Returns payment configuration for testing.
+
+### 3. Get Sample Payment Request
+
+**GET** `/payment-test/sample-request`
+
+Returns a complete sample payment request.
+
+---
+
+## Authentication Endpoints
+
+### 1. Register
+
+**POST** `/auth/register`
+
+**Request Body:**
+
+```json
+{
+    "first_name": "John",
+    "last_name": "Doe",
     "email": "john@example.com",
-    "password": "password123",
-    "password_confirmation": "password123",
     "phone": "+90 555 123 4567",
-    "birth_date": "1990-01-01",
-    "session_token": "optional_guest_session_token"
+    "password": "SecurePass123!",
+    "password_confirmation": "SecurePass123!"
 }
 ```
 
-### Giriş Yap
-```http
-POST /api/auth/login
-Content-Type: application/json
+### 2. Login
 
+**POST** `/auth/login`
+
+**Request Body:**
+
+```json
 {
     "email": "john@example.com",
-    "password": "password123",
-    "session_token": "optional_guest_session_token"
+    "password": "SecurePass123!"
 }
 ```
 
-### Çıkış Yap
-```http
-POST /api/user/logout
-Authorization: Bearer {token}
-```
+**Success Response:**
 
-### Profil Bilgileri
-```http
-GET /api/user
-Authorization: Bearer {token}
-```
-
-### Profil Güncelle
-```http
-PUT /api/user
-Authorization: Bearer {token}
-Content-Type: application/json
-
+```json
 {
-    "name": "Updated Name",
-    "phone": "+90 555 123 4567",
-    "birth_date": "1990-01-01"
+    "success": true,
+    "data": {
+        "user": {...},
+        "token": "bearer_token_here"
+    }
 }
 ```
 
-## 🛍️ Product Endpoints
+---
 
-### Ürün Listesi
-```http
-GET /api/products?category=celik-yelek&search=koruma&min_price=100&max_price=500&sort=price&order=asc&per_page=12&page=1
+## Order Endpoints
+
+### 1. Create Order
+
+**POST** `/checkout/order`
+
+**Headers:** `Authorization: Bearer {token}`
+
+**Request Body:**
+
+```json
+{
+    "shipping_address": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "company": "",
+        "address_line_1": "Test Address 123",
+        "address_line_2": "",
+        "city": "İstanbul",
+        "state": "İstanbul",
+        "postal_code": "34000",
+        "country": "Turkey",
+        "phone": "+90 555 123 4567"
+    },
+    "billing_same_as_shipping": true,
+    "notes": "Please deliver carefully"
+}
 ```
 
-### Ürün Detayı
-```http
-GET /api/products/{slug}
-```
+### 2. Get Orders
 
-### Öne Çıkan Ürünler
-```http
-GET /api/products/featured
-```
+**GET** `/orders`
 
-### Kategoriler
-```http
-GET /api/products/categories
-```
+**Headers:** `Authorization: Bearer {token}`
 
-### Varyant Detayı
-```http
-GET /api/products/variant/{variantId}
-```
+### 3. Get Order Details
 
-## 🛒 Cart Endpoints
+**GET** `/orders/{orderNumber}`
 
-### Sepet Görüntüle
-```http
-GET /api/cart
-Authorization: Bearer {token} (optional)
-X-Session-Token: {guest_session_token} (for guests)
-```
+**Headers:** `Authorization: Bearer {token}`
 
-### Sepete Ürün Ekle
-```http
-POST /api/cart/add
-Authorization: Bearer {token} (optional)
-X-Session-Token: {guest_session_token} (for guests)
-Content-Type: application/json
+---
 
+## Product Endpoints
+
+### 1. Get Products
+
+**GET** `/products?page=1&per_page=12&category=1&featured=true&sort=price_asc`
+
+**Query Parameters:**
+
+-   `page`: Page number (default: 1)
+-   `per_page`: Items per page (default: 12)
+-   `category`: Category ID filter
+-   `featured`: Show only featured products (true/false)
+-   `sort`: Sort order (price_asc, price_desc, name_asc, name_desc, newest)
+
+### 2. Get Product Details
+
+**GET** `/products/{slug}`
+
+### 3. Get Product Variant
+
+**GET** `/products/variant/{variantId}`
+
+---
+
+## Cart Endpoints
+
+### 1. Get Cart
+
+**GET** `/cart`
+
+### 2. Add to Cart
+
+**POST** `/cart/add`
+
+**Request Body:**
+
+```json
 {
     "variant_id": 1,
     "quantity": 2
 }
 ```
 
-### Sepet Öğesi Güncelle
-```http
-PUT /api/cart/{cartItemId}
-Authorization: Bearer {token} (optional)
-X-Session-Token: {guest_session_token} (for guests)
-Content-Type: application/json
+### 3. Update Cart Item
 
+**PUT** `/cart/{cartItemId}`
+
+**Request Body:**
+
+```json
 {
     "quantity": 3
 }
 ```
 
-### Sepetten Öğe Kaldır
-```http
-DELETE /api/cart/{cartItemId}
-Authorization: Bearer {token} (optional)
-X-Session-Token: {guest_session_token} (for guests)
-```
+### 4. Remove Cart Item
 
-### Sepeti Temizle
-```http
-DELETE /api/cart
-Authorization: Bearer {token} (optional)
-X-Session-Token: {guest_session_token} (for guests)
-```
+**DELETE** `/cart/{cartItemId}`
 
-## ✅ Checkout Endpoints
+### 5. Clear Cart
 
-### Sepeti Doğrula
-```http
-POST /api/checkout/validate
-Authorization: Bearer {token}
-```
+**DELETE** `/cart`
 
-### Kargo Ücreti Hesapla
-```http
-POST /api/checkout/shipping
-Authorization: Bearer {token}
-Content-Type: application/json
+---
 
-{
-    "address_id": 1
-}
-```
+## Test Endpoints
 
-### Sipariş Oluştur
-```http
-POST /api/checkout/order
-Authorization: Bearer {token}
-Content-Type: application/json
+### 1. API Ping Test
 
-{
-    "shipping_address_id": 1,
-    "billing_address_id": 2,
-    "shipping_method": "standard",
-    "notes": "Kapıya teslim edilsin"
-}
-```
+**GET** `/api-test/ping`
 
-### Sipariş Detayı (Checkout)
-```http
-GET /api/checkout/order/{orderNumber}
-Authorization: Bearer {token}
-```
+### 2. Auth Headers Test
 
-## 📦 Order Endpoints
+**GET** `/api-test/auth-headers`
 
-### Sipariş Listesi
-```http
-GET /api/orders?page=1
-Authorization: Bearer {token}
-```
+### 3. POST Data Test
 
-### Sipariş Detayı
-```http
-GET /api/orders/{orderNumber}
-Authorization: Bearer {token}
-```
+**POST** `/api-test/post-data`
 
-### Sipariş İptal Et
-```http
-POST /api/orders/{orderNumber}/cancel
-Authorization: Bearer {token}
-```
+---
 
-### Siparişi Tekrar Ver
-```http
-POST /api/orders/{orderNumber}/reorder
-Authorization: Bearer {token}
-```
+## Status Codes
 
-## 🏠 Address Endpoints
+-   `200` - Success
+-   `201` - Created
+-   `400` - Bad Request
+-   `401` - Unauthorized
+-   `403` - Forbidden
+-   `404` - Not Found
+-   `422` - Validation Error
+-   `429` - Too Many Requests
+-   `500` - Server Error
 
-### Adres Listesi
-```http
-GET /api/user/addresses
-Authorization: Bearer {token}
-```
+## Rate Limiting
 
-### Adres Ekle
-```http
-POST /api/user/addresses
-Authorization: Bearer {token}
-Content-Type: application/json
+-   **General API**: 60 requests per minute
+-   **Authenticated**: 100 requests per minute
+-   **Auth endpoints**: 5 requests per minute
 
-{
-    "title": "Ev Adresi",
-    "first_name": "John",
-    "last_name": "Doe",
-    "phone": "+90 555 123 4567",
-    "address_line_1": "Atatürk Cad. No:123",
-    "address_line_2": "Daire 4",
-    "city": "İstanbul",
-    "state": "İstanbul",
-    "postal_code": "34000",
-    "country": "TR",
-    "is_default": true
-}
-```
+## Error Response Format
 
-### Adres Güncelle
-```http
-PUT /api/user/addresses/{addressId}
-Authorization: Bearer {token}
-Content-Type: application/json
-
-{
-    "title": "İş Adresi",
-    "first_name": "John",
-    "last_name": "Doe",
-    "phone": "+90 555 123 4567",
-    "address_line_1": "İş Merkezi No:456",
-    "city": "Ankara",
-    "state": "Ankara",
-    "postal_code": "06000",
-    "country": "TR",
-    "is_default": false
-}
-```
-
-### Adres Sil
-```http
-DELETE /api/user/addresses/{addressId}
-Authorization: Bearer {token}
-```
-
-## 🔧 System Endpoints
-
-### Health Check
-```http
-GET /api/health
-```
-
-## 📊 Response Formats
-
-### Başarılı Response
-```json
-{
-    "success": true,
-    "data": {...},
-    "message": "İşlem başarılı"
-}
-```
-
-### Hata Response
 ```json
 {
     "success": false,
-    "error": "Hata mesajı",
+    "message": "Error message",
+    "error_code": "ERROR_CODE",
     "errors": {
-        "field": ["Validation hatası"]
+        "field": ["validation error"]
     }
 }
-```
-
-### Pagination
-```json
-{
-    "data": [...],
-    "pagination": {
-        "current_page": 1,
-        "last_page": 5,
-        "per_page": 12,
-        "total": 60
-    }
-}
-```
-
-## 🧪 Test Komutları
-
-### Postman/Thunder Client
-```javascript
-// Auth token'ı kaydet
-pm.environment.set("auth_token", pm.response.json().token);
-
-// Headers
-Authorization: Bearer {{auth_token}}
-Content-Type: application/json
-X-Session-Token: {{guest_session}} // Misafir kullanıcılar için
-```
-
-### cURL Examples
-```bash
-# Login
-curl -X POST http://localhost:8000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"test@test.com","password":"password"}'
-
-# Get Products
-curl -X GET http://localhost:8000/api/products
-
-# Add to Cart (Authenticated)
-curl -X POST http://localhost:8000/api/cart/add \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"variant_id":1,"quantity":2}'
 ```

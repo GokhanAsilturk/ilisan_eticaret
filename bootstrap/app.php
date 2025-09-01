@@ -76,7 +76,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // Global error handling with logging
         $exceptions->render(function (\Throwable $e, $request) {
             // Structured logging
-            \Log::error('Application Error', [
+            \Illuminate\Support\Facades\Log::error('Application Error', [
                 'exception' => get_class($e),
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),

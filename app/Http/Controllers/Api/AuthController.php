@@ -29,8 +29,11 @@ class AuthController extends Controller
             'birth_date' => 'nullable|date|before:today'
         ]);
 
+        $nameParts = explode(' ', $request->name, 2);
+
         $user = User::create([
-            'name' => $request->name,
+            'first_name' => $nameParts[0],
+            'last_name' => $nameParts[1] ?? '',
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone,

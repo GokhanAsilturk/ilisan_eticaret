@@ -23,7 +23,7 @@ class CheckoutController extends Controller
     {
         $cart = $this->cartService->getOrCreateCart(Auth::user());
         $errors = $this->checkoutService->validateCart($cart);
-        
+
         if (!empty($errors)) {
             return response()->json(['errors' => $errors], 400);
         }
@@ -91,7 +91,7 @@ class CheckoutController extends Controller
 
         $shippingAddress = Address::where('user_id', $user->id)
             ->findOrFail($request->shipping_address_id);
-        
+
         $billingAddress = $request->billing_address_id
             ? Address::where('user_id', $user->id)->findOrFail($request->billing_address_id)
             : $shippingAddress;

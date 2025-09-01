@@ -61,10 +61,6 @@ class OrderResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(0),
-                Forms\Components\TextInput::make('discount_total')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
                 Forms\Components\TextInput::make('total')
                     ->required()
                     ->numeric()
@@ -114,9 +110,6 @@ class OrderResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('shipping_total')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('discount_total')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total')
