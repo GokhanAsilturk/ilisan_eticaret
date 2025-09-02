@@ -10,7 +10,6 @@ use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Illuminate\Support\Number;
 
 class StatsOverview extends BaseWidget
 {
@@ -68,7 +67,7 @@ class StatsOverview extends BaseWidget
             ->where('status', '!=', OrderStatus::CANCELLED->value)
             ->sum('total');
 
-        return '₺' . Number::format($revenue, precision: 2);
+        return '₺' . number_format((float)$revenue, 2, ',', '.');
     }
 
     private function getActiveProducts(): int
