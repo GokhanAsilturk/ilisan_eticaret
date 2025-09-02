@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App\Services;
 
@@ -91,7 +91,7 @@ class MediaService
     public function getProductMedia(Product $product, ?string $color = null): Collection
     {
         return $product->media()
-            ->when($color, fn($q) => $q->where('attributes->color', $color))
+            ->when($color, fn ($q) => $q->where('attributes->color', $color))
             ->orderBy('sort_order')
             ->get();
     }
@@ -164,7 +164,7 @@ class MediaService
     {
         return Media::where('mediable_type', Product::class)
             ->where('mediable_id', $product->id)
-            ->when($color, fn($q) => $q->where('attributes->color', $color))
+            ->when($color, fn ($q) => $q->where('attributes->color', $color))
             ->max('sort_order') + 1;
     }
 }

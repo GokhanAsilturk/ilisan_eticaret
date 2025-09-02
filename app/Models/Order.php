@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App\Models;
 
@@ -116,7 +116,7 @@ class Order extends Model
         $this->status = $status;
 
         // Durum değişiklik zamanlarını kaydet
-        match($status) {
+        match ($status) {
             OrderStatus::PROCESSING => $this->placed_at = $this->placed_at ?? now(),
             OrderStatus::SHIPPED => $this->shipped_at = now(),
             OrderStatus::DELIVERED => $this->delivered_at = now(),

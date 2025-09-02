@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App\Services;
 
@@ -9,10 +9,7 @@ use App\Models\Payment;
 use App\Enums\PaymentStatus;
 use Illuminate\Support\Str;
 use Iyzipay\Options;
-use Iyzipay\Model\Payment as IyzicoPayment;
-use Iyzipay\Model\PaymentAuth;
 use Iyzipay\Model\ThreedsInitialize;
-use Iyzipay\Request\CreatePaymentRequest;
 use Iyzipay\Request\CreateThreedsPaymentRequest;
 
 /**
@@ -136,7 +133,6 @@ class IyzicoPaymentService
                 $threedsInitialize->getErrorMessage(),
                 $threedsInitialize->getErrorCode()
             );
-
         } catch (\Exception $e) {
             return $this->createErrorResponse($e->getMessage(), 'EXCEPTION');
         }
@@ -164,7 +160,6 @@ class IyzicoPaymentService
             }
 
             return $this->processPaymentCallback($payment, $threedsPayment);
-
         } catch (\Exception $e) {
             return $this->createErrorResponse($e->getMessage(), 'CALLBACK_EXCEPTION');
         }
@@ -204,7 +199,6 @@ class IyzicoPaymentService
                 $refund->getErrorMessage(),
                 $refund->getErrorCode()
             );
-
         } catch (\Exception $e) {
             return $this->createErrorResponse($e->getMessage(), 'REFUND_EXCEPTION');
         }

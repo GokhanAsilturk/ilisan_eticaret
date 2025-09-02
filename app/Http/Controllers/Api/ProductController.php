@@ -14,7 +14,8 @@ class ProductController extends Controller
 {
     public function __construct(
         private StockService $stockService
-    ) {}
+    ) {
+    }
 
     public function index(Request $request): JsonResponse
     {

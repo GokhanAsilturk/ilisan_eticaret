@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App\Enums;
 
@@ -14,7 +14,7 @@ enum UserRole: string
      */
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             self::ADMIN => 'Yönetici',
             self::USER => 'Müşteri',
         };
@@ -37,7 +37,7 @@ enum UserRole: string
      */
     public function color(): string
     {
-        return match($this) {
+        return match ($this) {
             self::ADMIN => 'danger',
             self::USER => 'success',
         };

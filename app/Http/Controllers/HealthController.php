@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
@@ -23,8 +23,6 @@ class HealthController
             'version' => config('app.version', '1.0.0'),
             'environment' => app()->environment(),
         ]);
-
-
     }
 
     /**
@@ -40,7 +38,7 @@ class HealthController
             'storage' => $this->checkStorage(),
         ];
 
-        $overall = collect($checks)->every(fn($check) => $check['status'] === 'ok')
+        $overall = collect($checks)->every(fn ($check) => $check['status'] === 'ok')
             ? 'healthy' : 'unhealthy';
 
         return response()->json([

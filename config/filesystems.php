@@ -40,7 +40,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,
@@ -49,7 +49,7 @@ return [
         'products' => [
             'driver' => 'local',
             'root' => storage_path('app/public/products'),
-            'url' => env('APP_URL').'/storage/products',
+            'url' => env('APP_URL') . '/storage/products',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,
@@ -82,14 +82,10 @@ return [
         ],
 
         'products' => [
-            'driver' => 's3',
-            'key' => env('MINIO_ACCESS_KEY', 'minioadmin'),
-            'secret' => env('MINIO_SECRET_KEY', 'minioadmin'),
-            'region' => env('MINIO_REGION', 'us-east-1'),
-            'bucket' => env('MINIO_PRODUCTS_BUCKET', 'products'),
-            'url' => env('MINIO_URL', 'http://localhost:9000'),
-            'endpoint' => env('MINIO_ENDPOINT', 'http://minio:9000'),
-            'use_path_style_endpoint' => true,
+            'driver' => 'local',
+            'root' => storage_path('app/public/products'),
+            'url' => env('APP_URL') . '/storage/products',
+            'visibility' => 'public',
             'throw' => false,
             'report' => false,
         ],

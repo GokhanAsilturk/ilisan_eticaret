@@ -16,7 +16,8 @@ class CheckoutService
         private CartService $cartService,
         private StockService $stockService,
         private PricingService $pricingService
-    ) {}
+    ) {
+    }
 
     public function validateCart(Cart $cart): array
     {

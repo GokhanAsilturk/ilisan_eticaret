@@ -13,7 +13,8 @@ class CartService
     public function __construct(
         private StockService $stockService,
         private PricingService $pricingService
-    ) {}
+    ) {
+    }
 
     public function getOrCreateCart(?User $user = null): Cart
     {

@@ -11,19 +11,19 @@ class CacheService
     /**
      * Cache duration constants
      */
-    const SHORT_CACHE = 300; // 5 minutes
-    const MEDIUM_CACHE = 1800; // 30 minutes
-    const LONG_CACHE = 3600; // 1 hour
-    const VERY_LONG_CACHE = 86400; // 24 hours
+    public const SHORT_CACHE = 300; // 5 minutes
+    public const MEDIUM_CACHE = 1800; // 30 minutes
+    public const LONG_CACHE = 3600; // 1 hour
+    public const VERY_LONG_CACHE = 86400; // 24 hours
 
     /**
      * Cache tags for organized invalidation
      */
-    const TAG_CATEGORIES = 'categories';
-    const TAG_PRODUCTS = 'products';
-    const TAG_USERS = 'users';
-    const TAG_ORDERS = 'orders';
-    const TAG_GLOBAL = 'global';
+    public const TAG_CATEGORIES = 'categories';
+    public const TAG_PRODUCTS = 'products';
+    public const TAG_USERS = 'users';
+    public const TAG_ORDERS = 'orders';
+    public const TAG_GLOBAL = 'global';
 
     /**
      * Remember cache with tags
@@ -49,7 +49,7 @@ class CacheService
         return $this->remember(
             'categories.tree',
             self::LONG_CACHE,
-            fn() => \App\Models\Category::with('children')
+            fn () => \App\Models\Category::with('children')
                 ->where('is_active', true)
                 ->whereNull('parent_id')
                 ->orderBy('sort_order')
@@ -67,7 +67,7 @@ class CacheService
         return $this->remember(
             "category.{$categoryId}.products_count",
             self::MEDIUM_CACHE,
-            fn() => \App\Models\Product::where('category_id', $categoryId)
+            fn () => \App\Models\Product::where('category_id', $categoryId)
                 ->where('is_active', true)
                 ->count(),
             [self::TAG_CATEGORIES, self::TAG_PRODUCTS]
@@ -82,7 +82,7 @@ class CacheService
         return $this->remember(
             "user.{$userId}.profile",
             self::MEDIUM_CACHE,
-            fn() => \App\Models\User::with(['addresses', 'orders'])
+            fn () => \App\Models\User::with(['addresses', 'orders'])
                 ->find($userId)
                 ?->toArray(),
             [self::TAG_USERS]
@@ -97,7 +97,7 @@ class CacheService
         return $this->remember(
             "products.popular.{$limit}",
             self::LONG_CACHE,
-            fn() => \App\Models\Product::with(['category', 'variants'])
+            fn () => \App\Models\Product::with(['category', 'variants'])
                 ->where('is_active', true)
                 ->where('is_featured', true)
                 ->orderBy('created_at', 'desc')
@@ -152,7 +152,7 @@ class CacheService
         return $this->remember(
             'system.settings',
             self::VERY_LONG_CACHE,
-            fn() => config('app'),
+            fn () => config('app'),
             [self::TAG_GLOBAL]
         );
     }
@@ -199,7 +199,7 @@ class CacheService
         return $this->remember(
             $key,
             $seconds,
-            fn() => $model->load($relations),
+            fn () => $model->load($relations),
             $tags
         );
     }

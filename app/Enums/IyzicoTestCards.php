@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App\Enums;
 
@@ -37,7 +37,7 @@ enum IyzicoTestCards: string
      */
     public function getCardInfo(): array
     {
-        return match($this) {
+        return match ($this) {
             self::SUCCESS_CARD => [
                 'number' => '5528790000000008',
                 'expire_month' => self::DEFAULT_MONTH,

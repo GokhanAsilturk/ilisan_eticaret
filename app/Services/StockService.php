@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\ProductVariant;
-use App\Models\Inventory;
 use Illuminate\Support\Facades\DB;
 
 class StockService

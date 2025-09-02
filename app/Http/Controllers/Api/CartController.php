@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Services\CartService;
 use App\Services\StockService;
 use App\Models\ProductVariant;
-use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +15,8 @@ class CartController extends Controller
     public function __construct(
         private CartService $cartService,
         private StockService $stockService
-    ) {}
+    ) {
+    }
 
     public function index(): JsonResponse
     {

@@ -34,11 +34,11 @@ class PerformanceMiddleware
 
             // Log slow queries
             foreach ($queries as $query) {
-                if ($query['time'] > 100) { // 100ms threshold
+                if (isset($query['time']) && $query['time'] > 100) { // 100ms threshold
                     Log::warning('Slow Query Detected', [
-                        'sql' => $query['sql'],
-                        'bindings' => $query['bindings'],
-                        'time' => $query['time'] . 'ms',
+                        'sql' => $query['sql'] ?? 'Unknown SQL',
+                        'bindings' => $query['bindings'] ?? [],
+                        'time' => ($query['time'] ?? 0) . 'ms',
                         'url' => $request->fullUrl(),
                     ]);
                 }

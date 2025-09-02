@@ -10,14 +10,14 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
 {
     public function __construct(
         private CartService $cartService,
         private CheckoutService $checkoutService
-    ) {}
+    ) {
+    }
 
     public function validateCart(): JsonResponse
     {
@@ -124,7 +124,6 @@ class CheckoutController extends Controller
                     'created_at' => $order->created_at
                 ]
             ], 201);
-
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }

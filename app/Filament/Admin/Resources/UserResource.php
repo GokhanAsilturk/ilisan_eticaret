@@ -10,15 +10,17 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Forms\Components\Section;
-use Illuminate\Database\Eloquent\Builder;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
+
     protected static ?string $navigationLabel = 'Kullanıcılar';
+
     protected static ?string $modelLabel = 'Kullanıcı';
+
     protected static ?string $pluralModelLabel = 'Kullanıcılar';
 
     private const DATE_FORMAT = 'd/m/Y';

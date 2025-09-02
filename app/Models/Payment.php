@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App\Models;
 
@@ -37,7 +37,9 @@ class Payment extends Model
         'authorized_at' => 'datetime',
         'captured_at' => 'datetime',
         'failed_at' => 'datetime',
-    ];    /**
+    ];
+
+    /**
      * Payment belongs to an Order
      */
     public function order(): BelongsTo
