@@ -14,3 +14,7 @@ Route::get('/', function () {
 });
 
 // Admin panel için route otomatik olarak Filament tarafından handle ediliyor
+
+Route::get('/_blade-test', function () {
+    return view('blade-test', ['ts' => now()->toDateTimeString()]);
+});
